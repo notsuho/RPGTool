@@ -21,7 +21,7 @@ public class Character {
     /**
      * Load a character from a JSON file.
      * @param filePath the path to the character file
-     * @return the loaded {@link fi.rpgtool.data.Character}
+     * @return the loaded {@link Character}
      * @throws IOException if reading the file failed.
      */
     public static Character load(String filePath) throws IOException {
@@ -31,7 +31,7 @@ public class Character {
     /**
      * Load a character from a JSON file.
      * @param file the character file
-     * @return the loaded {@link fi.rpgtool.data.Character}
+     * @return the loaded {@link Character}
      * @throws IOException if reading the file failed.
      */
     public static Character load(File file) throws IOException {
