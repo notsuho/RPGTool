@@ -1,11 +1,14 @@
-package fi.rpgtool.gui;
+package fi.rpgtool.gui.window;
+
+import fi.rpgtool.gui.RPGComponent;
+import fi.rpgtool.gui.RPGPanel;
 
 import javax.swing.*;
 
-public class InventoryWindow extends RPGFrame {
+public class InventoryWindow extends RPGPanel {
 
     public InventoryWindow(int width, int height) {
-        super(10, 10);
+        super(10, 9);
 
         RPGComponent label = new RPGComponent(new JLabel("Some other component:"));
 
