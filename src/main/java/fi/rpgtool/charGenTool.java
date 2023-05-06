@@ -81,7 +81,7 @@ public class charGenTool extends JFrame {
         // wanha layout paneeliin, jätin tähän niin muistaa mikä aikaisempi setup oli
         // jos siihen pitääkin palata siihen
         // skillPanel.setLayout(new GridLayout(5, 2, 5, 5));
-        skillPanel.setLayout(new BoxLayout(skillPanel, BoxLayout.Y_AXIS));
+        skillPanel.setLayout(new BoxLayout(skillPanel, BoxLayout.X_AXIS));
         skillPanel.setBorder(new TitledBorder("TAIDOT"));
 
         // nämäkin jossain vaiheessa lisätä...
@@ -91,6 +91,8 @@ public class charGenTool extends JFrame {
         // luodaan tekstikentät taidoille ja spinnerit niiden arvoille
         for (int i = 1; i <= 5; i++) {
             JTextField skillTextField = new JTextField("Taito " + i);
+            skillTextField.setSize(new Dimension(400, 30));
+            skillTextField.setSize(400, 30);
             JSpinner spinner = new JSpinner(new SpinnerNumberModel(1, 1, 5, 1));
             ((JSpinner.DefaultEditor) spinner.getEditor()).getTextField().setEditable(false);
             skillPanel.add(skillTextField);
@@ -184,6 +186,8 @@ public class charGenTool extends JFrame {
                             } else {
                                 resultField.setText("Epäonnistuit! Tulos: " + result);
                             }
+
+                            rollButton.setText("HEITÄ NOPPAA");
 
                             timer.stop();
                         }
