@@ -91,8 +91,6 @@ public class charGenTool extends JFrame {
         // luodaan tekstikentät taidoille ja spinnerit niiden arvoille
         for (int i = 1; i <= 5; i++) {
             JTextField skillTextField = new JTextField("Taito " + i);
-            skillTextField.setSize(new Dimension(400, 30));
-            skillTextField.setSize(400, 30);
             JSpinner spinner = new JSpinner(new SpinnerNumberModel(1, 1, 5, 1));
             ((JSpinner.DefaultEditor) spinner.getEditor()).getTextField().setEditable(false);
             skillPanel.add(skillTextField);
@@ -146,10 +144,8 @@ public class charGenTool extends JFrame {
         // luodaan nopanheittonappi ja tuloskenttä (Jonka kai olis tarkoitus olla popup
         // dialogi mutta good enough for now)
         JButton rollButton = new JButton("HEITÄ NOPPAA");
+        rollButton.setPreferredSize(new Dimension(50, 50));
         diceRollPanel.add(rollButton);
-
-        JTextField resultField = new JTextField("Heittotulos: ");
-        diceRollPanel.add(resultField);
 
         // action listener nopanheittonapille
         rollButton.addActionListener(new ActionListener() {
@@ -182,12 +178,10 @@ public class charGenTool extends JFrame {
                             int target = (int) difficultySelect.getSelectedItem();
 
                             if (result >= target) {
-                                resultField.setText("Onnistuit! Tulos: " + result);
+                                rollButton.setText("<html><center>HEITÄ NOPPAA<br/>Onnistuit! Tulos: " + result + "</center></html>");
                             } else {
-                                resultField.setText("Epäonnistuit! Tulos: " + result);
+                                rollButton.setText("<html><center>HEITÄ NOPPAA<br/>Epäonnistuit! Tulos: " + result + "</center></html>");
                             }
-
-                            rollButton.setText("HEITÄ NOPPAA");
 
                             timer.stop();
                         }
