@@ -5,10 +5,6 @@ import fi.rpgtool.gui.RollButton;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class charGenTool extends JFrame {
 
@@ -164,10 +160,6 @@ public class charGenTool extends JFrame {
         mainView.pack();
 
         mainView.setVisible(true);
-    }
-
-    public static int getIntValueOrDefault(JComboBox<Integer> box, int def) {
-        return box.getSelectedItem() == null ? def : (int) box.getSelectedItem();
     }
 
     public static void main(String[] args) {
