@@ -1,14 +1,33 @@
 package fi.rpgtool;
 
+import fi.rpgtool.data.Character;
+import fi.rpgtool.data.CharacterHandler;
 import fi.rpgtool.gui.window.InventoryWindow;
 import fi.rpgtool.gui.window.StatisticWindow;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 
 public class RPGTool {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+
+        Character character = CharacterHandler.load("NewUniqueNameForRPGTool2.json");
+
+        character.setName("Erkki Esimerkki");
+        character.setStatistic("health", 1);
+        character.removeAbility("health");
+        character.setAbility("someability", 2);
+
+        character.addInventoryItem("Taikajuoma x2");
+        character.addInventoryItem("Taikamiekka x1");
+
+        CharacterHandler.save();
+
+    }
+
+    /*public static void main(String[] args) {
 
         MainWindow window = new MainWindow(600, 800);
 
@@ -38,6 +57,6 @@ public class RPGTool {
 
         window.setContentPane(pane);
         window.setVisible(true);
-    }
+    }*/
 
 }

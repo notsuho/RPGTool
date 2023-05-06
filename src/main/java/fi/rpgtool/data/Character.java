@@ -1,57 +1,16 @@
 package fi.rpgtool.data;
 
-import com.google.gson.Gson;
-import com.google.gson.stream.JsonReader;
-
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Character {
 
-    private static final Gson gson = new Gson();
-
-    private String name;
-    private Map<String, Integer> statistics;
-    private Map<String, Integer> abilities;
-
-    /**
-     * Load a character from a JSON file.
-     * @param filePath the path to the character file
-     * @return the loaded {@link Character}
-     * @throws IOException if reading the file failed.
-     */
-    public static Character load(String filePath) throws IOException {
-        return load(new File(filePath));
-    }
-
-    /**
-     * Load a character from a JSON file.
-     * @param file the character file
-     * @return the loaded {@link Character}
-     * @throws IOException if reading the file failed.
-     */
-    public static Character load(File file) throws IOException {
-
-        JsonReader reader = new JsonReader(new FileReader(file));
-
-        Character character = gson.fromJson(reader, Character.class);
-
-        reader.close();
-
-        return character;
-    }
-
-    public void save(String filePath) throws IOException {
-        save(new File(filePath));
-    }
-
-    public void save(File file) throws IOException {
-        Files.writeString(Path.of(file.getPath()), gson.toJson(this, Character.class));
-    }
+    private String name = "";
+    private final Map<String, Integer> statistics = new HashMap<>();
+    private final Map<String, Integer> abilities = new HashMap<>();
+    private final List<String> inventory = new ArrayList<>();
 
     public String getName() {
         return name;
@@ -75,6 +34,26 @@ public class Character {
 
     public void setAbility(String key, int value) {
         abilities.put(key, value);
+    }
+
+    public void removeStatistic(String key) {
+        statistics.remove(key);
+    }
+
+    public void removeAbility(String key) {
+        abilities.remove(key);
+    }
+
+    public List<String> getInventory() {
+        return inventory;
+    }
+
+    public void addInventoryItem(String item) {
+        inventory.add(item);
+    }
+
+    public void removeInventoryItem(int index) {
+        inventory.remove(index);
     }
 
 }

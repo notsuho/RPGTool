@@ -1,8 +1,10 @@
-import java.awt.*;
-import java.awt.event.*;
+package fi.rpgtool;
+
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
-
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Random;
 
 public class charGenTool extends JFrame {
@@ -22,6 +24,12 @@ public class charGenTool extends JFrame {
         mainView.setLayout(new BoxLayout(mainView.getContentPane(), BoxLayout.Y_AXIS));
         // tän voi pistää falseksi jos ei halua käyttäjän muokkaavan ikkunan kokoa
         setResizable(true);
+
+        JMenuBar menu = new JMenuBar();
+        JMenu file = new JMenu("File");
+        menu.add(file);
+
+        mainView.setJMenuBar(menu);
 
         // Luodaan nimipaneeli johon tulee hahmokuva, nimi,
         // terveyspisteet ja haarniskapisteet (armor tjsp)
@@ -143,19 +151,49 @@ public class charGenTool extends JFrame {
 
         // action listener nopanheittonapille
         rollButton.addActionListener(new ActionListener() {
+
+            Timer timer;
+
             public void actionPerformed(ActionEvent e) {
-                Random rand = new Random();
-                int dice = (int) dieSelect.getSelectedItem();
-                int result = rand.nextInt(dice);
-                result += 1;
-                int skill = (int) skillSelect.getSelectedItem();
-                result += skill;
-                int target = (int) difficultySelect.getSelectedItem();
-                if (result >= target) {
-                    resultField.setText("Onnistuit! Tulos: " + result);
-                } else {
-                    resultField.setText("Epäonnistuit! Tulos: " + result);
-                }
+
+                timer = new Timer(50, new ActionListener() {
+
+                    final int rolls = 6;
+                    final int ticks = 10;
+                    int tick = 0;
+                    final Random rand = new Random();
+
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+
+                        int dice = (int) dieSelect.getSelectedItem();
+                        int result = rand.nextInt(1, dice + 1);
+
+                        if (tick <= rolls) {
+                            rollButton.setText("Silmäluku: " + result);
+                        } else if (tick == ticks) {
+
+                            int skill = (int) skillSelect.getSelectedItem();
+
+                            result += skill;
+
+                            int target = (int) difficultySelect.getSelectedItem();
+
+                            if (result >= target) {
+                                resultField.setText("Onnistuit! Tulos: " + result);
+                            } else {
+                                resultField.setText("Epäonnistuit! Tulos: " + result);
+                            }
+
+                            timer.stop();
+                        }
+
+                        tick++;
+                    }
+                });
+
+                timer.setInitialDelay(0);
+                timer.start();
             }
         });
 
