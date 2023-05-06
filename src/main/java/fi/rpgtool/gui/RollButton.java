@@ -9,9 +9,56 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class RollButton extends JButton {
 
+    private JComboBox<Integer> dieSelector = null;
+    private JComboBox<Integer> skillSelector = null;
+    private JComboBox<Integer> difficultySelector = null;
+
+    private static final int DEFAULT_DIE = 4;
+    private static final int DEFAULT_SKILL = 1;
+    private static final int DEFAULT_DIFFICULTY = 5;
+
     public RollButton() {
-        this.setText("Click to roll!");
+        this.setText("HEITÄ NOPPAA");
         this.addMouseListener(new RollButtonClickListener(this));
+    }
+
+    public void setDieSelector(JComboBox<Integer> dieSelector) {
+        this.dieSelector = dieSelector;
+    }
+
+    public void setSkillSelector(JComboBox<Integer> skillSelector) {
+        this.skillSelector = skillSelector;
+    }
+
+    public void setDifficultySelector(JComboBox<Integer> difficultySelector) {
+        this.difficultySelector = difficultySelector;
+    }
+
+    public int getDie() {
+
+        if (this.dieSelector == null || this.dieSelector.getSelectedItem() == null) {
+            return DEFAULT_DIE;
+        }
+
+        return (int) this.dieSelector.getSelectedItem();
+    }
+
+    public int getSkill() {
+
+        if (this.skillSelector == null || this.skillSelector.getSelectedItem() == null) {
+            return DEFAULT_SKILL;
+        }
+
+        return (int) this.skillSelector.getSelectedItem();
+    }
+
+    public int getDifficulty() {
+
+        if (this.difficultySelector == null || this.difficultySelector.getSelectedItem() == null) {
+            return DEFAULT_DIFFICULTY;
+        }
+
+        return (int) this.difficultySelector.getSelectedItem();
     }
 
     static class RollButtonClickListener implements MouseListener {
@@ -35,10 +82,25 @@ public class RollButton extends JButton {
                 @Override
                 public void actionPerformed(ActionEvent e) {
 
+                    int dice = rollButton.getDie();
+                    int result = ThreadLocalRandom.current().nextInt(1, dice + 1);
+
                     if (tick <= rolls) {
-                        rollButton.setText("Rolled: " + ThreadLocalRandom.current().nextInt(1, 7));
+                        rollButton.setText("Silmäluku: " + result);
                     } else if (tick == ticks) {
-                        rollButton.setText("<html><center>" + rollButton.getText() + "<br/>Click to roll!</center></html>");
+
+                        int skill = rollButton.getSkill();
+
+                        result += skill;
+
+                        int target = rollButton.getDifficulty();
+
+                        if (result >= target) {
+                            rollButton.setText("<html><center>HEITÄ NOPPAA<br/>Onnistuit! Tulos: " + result + "</center></html>");
+                        } else {
+                            rollButton.setText("<html><center>HEITÄ NOPPAA<br/>Epäonnistuit! Tulos: " + result + "</center></html>");
+                        }
+
                         timer.stop();
                     }
 

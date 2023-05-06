@@ -1,11 +1,14 @@
 package fi.rpgtool;
 
+import fi.rpgtool.gui.RollButton;
+
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class charGenTool extends JFrame {
 
@@ -143,57 +146,14 @@ public class charGenTool extends JFrame {
 
         // luodaan nopanheittonappi ja tuloskenttä (Jonka kai olis tarkoitus olla popup
         // dialogi mutta good enough for now)
-        JButton rollButton = new JButton("HEITÄ NOPPAA");
+        RollButton rollButton = new RollButton();
         rollButton.setPreferredSize(new Dimension(50, 50));
+
+        rollButton.setDieSelector(dieSelect);
+        rollButton.setSkillSelector(skillSelect);
+        rollButton.setDifficultySelector(difficultySelect);
+
         diceRollPanel.add(rollButton);
-
-        // action listener nopanheittonapille
-        rollButton.addActionListener(new ActionListener() {
-
-            Timer timer;
-
-            public void actionPerformed(ActionEvent e) {
-
-                timer = new Timer(50, new ActionListener() {
-
-                    final int rolls = 6;
-                    final int ticks = 10;
-                    int tick = 0;
-                    final Random rand = new Random();
-
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-
-                        int dice = (int) dieSelect.getSelectedItem();
-                        int result = rand.nextInt(1, dice + 1);
-
-                        if (tick <= rolls) {
-                            rollButton.setText("Silmäluku: " + result);
-                        } else if (tick == ticks) {
-
-                            int skill = (int) skillSelect.getSelectedItem();
-
-                            result += skill;
-
-                            int target = (int) difficultySelect.getSelectedItem();
-
-                            if (result >= target) {
-                                rollButton.setText("<html><center>HEITÄ NOPPAA<br/>Onnistuit! Tulos: " + result + "</center></html>");
-                            } else {
-                                rollButton.setText("<html><center>HEITÄ NOPPAA<br/>Epäonnistuit! Tulos: " + result + "</center></html>");
-                            }
-
-                            timer.stop();
-                        }
-
-                        tick++;
-                    }
-                });
-
-                timer.setInitialDelay(0);
-                timer.start();
-            }
-        });
 
         // lisätään kaikki asiat päänäkymään
         mainView.add(namePanel);
@@ -204,6 +164,10 @@ public class charGenTool extends JFrame {
         mainView.pack();
 
         mainView.setVisible(true);
+    }
+
+    public static int getIntValueOrDefault(JComboBox<Integer> box, int def) {
+        return box.getSelectedItem() == null ? def : (int) box.getSelectedItem();
     }
 
     public static void main(String[] args) {
