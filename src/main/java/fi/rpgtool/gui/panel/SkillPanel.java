@@ -1,4 +1,4 @@
-package fi.rpgtool.gui;
+package fi.rpgtool.gui.panel;
 
 import fi.rpgtool.data.Character;
 

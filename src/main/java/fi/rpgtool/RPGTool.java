@@ -2,15 +2,17 @@ package fi.rpgtool;
 
 import fi.rpgtool.data.Character;
 import fi.rpgtool.data.CharacterHandler;
-import fi.rpgtool.gui.AttributePanel;
-import fi.rpgtool.gui.DiceRollPanel;
-import fi.rpgtool.gui.InfoPanel;
-import fi.rpgtool.gui.SkillPanel;
+import fi.rpgtool.gui.panel.AttributePanel;
+import fi.rpgtool.gui.panel.DiceRollPanel;
+import fi.rpgtool.gui.panel.InfoPanel;
+import fi.rpgtool.gui.panel.SkillPanel;
 import fi.rpgtool.gui.window.InventoryWindow;
+import fi.rpgtool.gui.window.MainWindow;
 import fi.rpgtool.gui.window.StatisticWindow;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 
 public class RPGTool {
@@ -34,8 +36,21 @@ public class RPGTool {
         MenuBar menu = new MenuBar();
         Menu file = new Menu("File");
         menu.add(file);
-        MenuItem m1 = new MenuItem("One");
-        MenuItem m2 = new MenuItem("Two");
+
+        MenuItem m1 = new MenuItem("Save");
+
+        m1.addActionListener(action -> {
+            JFileChooser fileChooser = new JFileChooser(new File(System.getProperty("user.home")));
+            int result = fileChooser.showSaveDialog(window);
+        });
+
+        MenuItem m2 = new MenuItem("Import");
+
+        m2.addActionListener(action -> {
+            JFileChooser fileChooser = new JFileChooser(new File(System.getProperty("user.home")));
+            int result = fileChooser.showOpenDialog(window);
+        });
+
         MenuItem m3 = new MenuItem("Three");
         file.add(m1);
         file.add(m2);
@@ -56,30 +71,31 @@ public class RPGTool {
         // saavan järkevästi vaihdettua joksikin toiseksi... Eli tehdään tyhjä jpane
         // halutulla layoutilla, johon laitetaan halutut alipaneelit, ja joka sitten
         // vielä isketään myöhemmin tabbedpaneen. Woo, inception
-        JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        //JPanel panel = new JPanel();
+        //panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
-        panel.add(ip);
-        panel.add(ap);
-        panel.add(sp);
-        panel.add(dcp);
+        //panel.add(ip);
+        //panel.add(ap);
+        //panel.add(sp);
+        //panel.add(dcp);
 
-        statisticWindow.add(panel);
+        //statisticWindow.add(panel);
 
         // vanha toteutus ennen kuin aloin tappelemaan jtabbedpane layouttien kanssa
-        // statisticWindow.add(ip);
-        // statisticWindow.add(ap);
-        // statisticWindow.add(sp);
-        // statisticWindow.add(dcp);
+        statisticWindow.add(ip);
+        statisticWindow.add(ap);
+        statisticWindow.add(sp);
+        statisticWindow.add(dcp);
 
         JTabbedPane pane = new JTabbedPane();
+        //pane.setLayout(new BoxLayout(pane, BoxLayout.Y_AXIS));
 
         JLabel statisticLabel = new JLabel("Statistics");
         JLabel inventoryLabel = new JLabel("Inventory");
         // statisticLabel.setPreferredSize(new Dimension(150, 30));
         // inventoryLabel.setPreferredSize(new Dimension(150, 30));
 
-        pane.addTab("Statistics", panel);
+        pane.addTab("Statistics", statisticWindow);
         pane.addTab("Inventory", inventoryWindow);
 
         pane.setTabComponentAt(0, statisticLabel);
@@ -91,12 +107,5 @@ public class RPGTool {
         window.pack();
         window.setVisible(true);
     }
-
-    /*
-     * public static void main(String[] args) {
-     * 
-     * 
-     * }
-     */
 
 }

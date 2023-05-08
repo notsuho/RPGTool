@@ -1,4 +1,4 @@
-package fi.rpgtool.gui;
+package fi.rpgtool.gui.panel;
 
 import fi.rpgtool.data.Character;
 
@@ -30,7 +30,7 @@ public class InfoPanel extends JPanel {
         this.armorSpinner.setBorder(new TitledBorder("Panssaripisteet"));
         ((JSpinner.DefaultEditor) armorSpinner.getEditor()).getTextField().setEditable(false);
 
-        this.add(new JLabel(new ImageIcon("src/main/java/fi/rpgtool/kuva.jpg")));
+        this.add(new JLabel(new ImageIcon("src/main/resources/kuva.jpg")));
         // this.add(new JLabel("Hahmon nimi"));
         this.add(this.nameField);
         // this.add(new JLabel("Terveyspisteet"));
