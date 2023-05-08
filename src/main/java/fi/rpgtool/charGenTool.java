@@ -35,7 +35,7 @@ public class charGenTool extends JFrame {
         JPanel namePanel = new JPanel();
         namePanel.setLayout(new BoxLayout(namePanel, BoxLayout.Y_AXIS));
         namePanel.setBorder(new TitledBorder("HAHMON TIEDOT"));
-        ImageIcon icon = new ImageIcon("kuva.jpg");
+        ImageIcon icon = new ImageIcon("src/main/java/fi/rpgtool/kuva.jpg");
         JLabel charPic = new JLabel(icon);
         JLabel charLabel = new JLabel("Hahmon nimi");
         JTextField charName = new JTextField("Erkki Esimerkki");

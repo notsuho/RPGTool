@@ -1,5 +1,7 @@
 package fi.rpgtool.gui;
 
+import fi.rpgtool.data.Character;
+
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;

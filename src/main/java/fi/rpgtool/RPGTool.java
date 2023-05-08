@@ -2,6 +2,10 @@ package fi.rpgtool;
 
 import fi.rpgtool.data.Character;
 import fi.rpgtool.data.CharacterHandler;
+import fi.rpgtool.gui.AttributePanel;
+import fi.rpgtool.gui.DiceRollPanel;
+import fi.rpgtool.gui.InfoPanel;
+import fi.rpgtool.gui.SkillPanel;
 import fi.rpgtool.gui.window.InventoryWindow;
 import fi.rpgtool.gui.window.StatisticWindow;
 
@@ -25,38 +29,74 @@ public class RPGTool {
 
         CharacterHandler.save();
 
-    }
-
-    /*public static void main(String[] args) {
-
-        MainWindow window = new MainWindow(600, 800);
-
-        InventoryWindow inventoryWindow = new InventoryWindow(600, 700);
-        StatisticWindow statisticWindow = new StatisticWindow(600, 700);
-
-        JTabbedPane pane = new JTabbedPane();
+        MainWindow window = new MainWindow();
 
         MenuBar menu = new MenuBar();
         Menu file = new Menu("File");
         menu.add(file);
+        MenuItem m1 = new MenuItem("One");
+        MenuItem m2 = new MenuItem("Two");
+        MenuItem m3 = new MenuItem("Three");
+        file.add(m1);
+        file.add(m2);
+        file.add(m3);
 
         window.setMenuBar(menu);
 
+        StatisticWindow statisticWindow = new StatisticWindow();
+        InventoryWindow inventoryWindow = new InventoryWindow();
+
+        InfoPanel ip = new InfoPanel(character);
+        AttributePanel ap = new AttributePanel(character);
+        SkillPanel sp = new SkillPanel(character);
+        DiceRollPanel dcp = new DiceRollPanel();
+
+        // näköjään pitää tehdä tälleen tosi tyhmästi ylimääräinen paneeli, koska
+        // tabbedpanessa oletus layout näyttäisi olevan flowlayout, eikä sitä tunnu
+        // saavan järkevästi vaihdettua joksikin toiseksi... Eli tehdään tyhjä jpane
+        // halutulla layoutilla, johon laitetaan halutut alipaneelit, ja joka sitten
+        // vielä isketään myöhemmin tabbedpaneen. Woo, inception
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+
+        panel.add(ip);
+        panel.add(ap);
+        panel.add(sp);
+        panel.add(dcp);
+
+        statisticWindow.add(panel);
+
+        // vanha toteutus ennen kuin aloin tappelemaan jtabbedpane layouttien kanssa
+        // statisticWindow.add(ip);
+        // statisticWindow.add(ap);
+        // statisticWindow.add(sp);
+        // statisticWindow.add(dcp);
+
+        JTabbedPane pane = new JTabbedPane();
+
         JLabel statisticLabel = new JLabel("Statistics");
         JLabel inventoryLabel = new JLabel("Inventory");
-        statisticLabel.setPreferredSize(new Dimension(150, 30));
-        inventoryLabel.setPreferredSize(new Dimension(150, 30));
+        // statisticLabel.setPreferredSize(new Dimension(150, 30));
+        // inventoryLabel.setPreferredSize(new Dimension(150, 30));
 
-        pane.addTab("Statistics", statisticWindow);
+        pane.addTab("Statistics", panel);
         pane.addTab("Inventory", inventoryWindow);
 
         pane.setTabComponentAt(0, statisticLabel);
         pane.setTabComponentAt(1, inventoryLabel);
 
-        pane.setVisible(true);
-
-        window.setContentPane(pane);
+        // pane.setVisible(true);
+        // window.setContentPane(pane);
+        window.getContentPane().add(pane);
+        window.pack();
         window.setVisible(true);
-    }*/
+    }
+
+    /*
+     * public static void main(String[] args) {
+     * 
+     * 
+     * }
+     */
 
 }
