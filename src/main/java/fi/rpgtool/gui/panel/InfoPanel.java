@@ -26,13 +26,13 @@ public class InfoPanel extends JPanel {
         // laitetaan spinnerin tekstikentän editointi pois päältä,
         // niin käyttäjä voi muokata sitä vain nuolinappien avulla
         // sama muille spinnereille myös
-        this.healthSpinner = new JSpinner(new SpinnerNumberModel(10, 0, 100, 1));
+        this.healthSpinner = new JSpinner(new SpinnerNumberModel(character.getHealth(), 0, 100, 1));
         this.healthSpinner.setBorder(new TitledBorder("Terveyspisteet"));
         this.healthSpinner.setPreferredSize(new Dimension(50, 20));
         ((JSpinner.DefaultEditor) healthSpinner.getEditor()).getTextField().setEditable(false);
         this.healthSpinner.addChangeListener(change -> CharacterHandler.getCharacter().setHealth((int) this.healthSpinner.getValue()));
 
-        this.armorSpinner = new JSpinner(new SpinnerNumberModel(10, 10, 50, 1));
+        this.armorSpinner = new JSpinner(new SpinnerNumberModel(character.getArmor(), 10, 50, 1));
         this.armorSpinner.setBorder(new TitledBorder("Panssaripisteet"));
         this.armorSpinner.setPreferredSize(new Dimension(50, 20));
         ((JSpinner.DefaultEditor) armorSpinner.getEditor()).getTextField().setEditable(false);
