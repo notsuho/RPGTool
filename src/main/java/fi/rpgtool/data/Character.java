@@ -8,7 +8,9 @@ import java.util.Map;
 public class Character {
 
     private String name = "";
-    private final Map<String, Integer> statistics = new HashMap<>();
+    private int health = 10;
+    private int armor = 10;
+    private final Map<String, Integer> attributes = new HashMap<>();
     private final Map<String, Integer> abilities = new HashMap<>();
     private final List<String> inventory = new ArrayList<>();
 
@@ -16,28 +18,44 @@ public class Character {
         return name;
     }
 
-    public Map<String, Integer> getStatistics() {
-        return statistics;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getHealth() {
+        return health;
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
+    public int getArmor() {
+        return armor;
+    }
+
+    public void setArmor(int armor) {
+        this.armor = armor;
+    }
+
+    public Map<String, Integer> getAttributes() {
+        return attributes;
+    }
+
+    public void setAttribute(String key, int value) {
+        attributes.put(key, value);
+    }
+
+    public void removeAttribute(String key) {
+        attributes.remove(key);
     }
 
     public Map<String, Integer> getAbilities() {
         return abilities;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setStatistic(String key, int value) {
-        statistics.put(key, value);
-    }
-
     public void setAbility(String key, int value) {
         abilities.put(key, value);
-    }
-
-    public void removeStatistic(String key) {
-        statistics.remove(key);
     }
 
     public void removeAbility(String key) {

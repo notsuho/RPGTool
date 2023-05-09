@@ -6,123 +6,54 @@ import fi.rpgtool.gui.panel.AttributePanel;
 import fi.rpgtool.gui.panel.DiceRollPanel;
 import fi.rpgtool.gui.panel.InfoPanel;
 import fi.rpgtool.gui.panel.SkillPanel;
-import fi.rpgtool.gui.window.HelpDialog;
 import fi.rpgtool.gui.window.InventoryWindow;
 import fi.rpgtool.gui.window.MainWindow;
 import fi.rpgtool.gui.window.StatisticWindow;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
-import java.io.IOException;
 
 public class RPGTool {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
 
         Character character = CharacterHandler.load("NewUniqueNameForRPGTool2.json");
 
-        character.setName("Erkki Esimerkki");
-        character.setStatistic("health", 1);
-        character.removeAbility("health");
-        character.setAbility("Kahvinjuominen", 1);
-        character.setAbility("Koodaus", 2);
-        character.setAbility("Kova äijä", 3);
+        // Todennäköisesti turha osa, mutta sallii koodin jatkamisen tässä
+        MainWindow window = createWindow(character);
+    }
 
-        // character.addInventoryItem("Taikajuoma x2");
-        // character.addInventoryItem("Taikamiekka x1");
-
-        CharacterHandler.save();
+    private static MainWindow createWindow(Character character) {
 
         MainWindow window = new MainWindow();
-
-        MenuBar menu = new MenuBar();
-        Menu file = new Menu("FILE");
-        Menu help = new Menu("HELP");
-        menu.add(file);
-        menu.add(help);
-
-        MenuItem m1 = new MenuItem("SAVE");
-
-        m1.addActionListener(action -> {
-            JFileChooser fileChooser = new JFileChooser(new File(System.getProperty("user.home")));
-            int result = fileChooser.showSaveDialog(window);
-        });
-
-        MenuItem m2 = new MenuItem("IMPORT");
-
-        m2.addActionListener(action -> {
-            JFileChooser fileChooser = new JFileChooser(new File(System.getProperty("user.home")));
-            int result = fileChooser.showOpenDialog(window);
-        });
-
-        MenuItem m3 = new MenuItem("KÄYTTÖOHJE");
-        m3.addActionListener(action -> {
-            try {
-                HelpDialog hd = new HelpDialog();
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        });
-
-        file.add(m1);
-        file.add(m2);
-        help.add(m3);
-
-        window.setMenuBar(menu);
 
         StatisticWindow statisticWindow = new StatisticWindow();
         InventoryWindow inventoryWindow = new InventoryWindow();
 
-        InfoPanel ip = new InfoPanel(character);
-        AttributePanel ap = new AttributePanel(character);
-        SkillPanel sp = new SkillPanel(character);
-        DiceRollPanel drp = new DiceRollPanel();
-
-        // näköjään pitää tehdä tälleen tosi tyhmästi ylimääräinen paneeli, koska
-        // tabbedpanessa oletus layout näyttäisi olevan flowlayout, eikä sitä tunnu
-        // saavan järkevästi vaihdettua joksikin toiseksi... Eli tehdään tyhjä jpane
-        // halutulla layoutilla, johon laitetaan halutut alipaneelit, ja joka sitten
-        // vielä isketään myöhemmin tabbedpaneen. Woo, inception
-        // JPanel panel = new JPanel();
-        // panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-
-        // panel.add(ip);
+        InfoPanel infoPanel = new InfoPanel(character);
+        AttributePanel attributePanel = new AttributePanel(character);
+        SkillPanel skillPanel = new SkillPanel(character);
+        DiceRollPanel diceRollPanel = new DiceRollPanel();
 
         // lisää paneeleja niin saadaan attributet ja skillit asemoitua vierekkäin
 
-        JPanel apAndSp = new JPanel();
-        apAndSp.setLayout(new BoxLayout(apAndSp, BoxLayout.X_AXIS));
+        JPanel attributeAndSkillPanel = new JPanel();
+        attributeAndSkillPanel.setLayout(new BoxLayout(attributeAndSkillPanel, BoxLayout.X_AXIS));
 
-        apAndSp.add(ap);
-        apAndSp.add(sp);
+        attributeAndSkillPanel.add(attributePanel);
+        attributeAndSkillPanel.add(skillPanel);
 
-        statisticWindow.add(ip);
-        statisticWindow.add(apAndSp);
-        statisticWindow.add(drp);
-
-        // statisticWindow.add(panel);
-
-        // vanha toteutus ennen kuin aloin tappelemaan jtabbedpane layouttien kanssa
-        // statisticWindow.add(ip);
-        // statisticWindow.add(ap);
-        // statisticWindow.add(sp);
-        // statisticWindow.add(dcp);
+        statisticWindow.add(infoPanel);
+        statisticWindow.add(attributeAndSkillPanel);
+        statisticWindow.add(diceRollPanel);
 
         JTabbedPane pane = new JTabbedPane();
-        // pane.setLayout(new BoxLayout(pane, BoxLayout.Y_AXIS));
-
-        JLabel statisticLabel = new JLabel("Statistics");
-        JLabel inventoryLabel = new JLabel("Inventory");
-        // statisticLabel.setPreferredSize(new Dimension(150, 30));
-        // inventoryLabel.setPreferredSize(new Dimension(150, 30));
 
         pane.addTab("Statistics", statisticWindow);
         pane.addTab("Inventory", inventoryWindow);
 
-        pane.setTabComponentAt(0, statisticLabel);
-        pane.setTabComponentAt(1, inventoryLabel);
+        pane.setTabComponentAt(0, new JLabel("Statistics"));
+        pane.setTabComponentAt(1, new JLabel("Inventory"));
 
         // pane.setVisible(true);
         // window.setContentPane(pane);
@@ -130,41 +61,40 @@ public class RPGTool {
         window.pack();
 
         // näitä ehdottomasti kannattaa siistiä heti kun kerkeää
-        SwingUtilities.invokeLater(
-                new Runnable() {
-                    public void run() {
-                        // Pyydetään kenttien suosikkikoko
-                        Dimension nameDimension = ip.getNameField().getPreferredSize();
-                        Dimension hSpinner = ip.getHealthSpinner().getPreferredSize();
-                        Dimension aSpinner = ip.getArmorSpinner().getPreferredSize();
-                        // Asetetaan minimikoko samaksi
-                        window.setMinimumSize(window.getPreferredSize());
-                        ip.getNameField().setMinimumSize(nameDimension);
-                        ip.getHealthSpinner().setMinimumSize(hSpinner);
-                        ip.getArmorSpinner().setMinimumSize(aSpinner);
-                        // drp.difficultySelector.setMinimumSize(drp.difficultySelector.getPreferredSize());
-                        // Asetetaan leveys "äärettömäksi"
-                        // dimension.width = Integer.MAX_VALUE;
+        SwingUtilities.invokeLater(() -> {
 
-                        ip.getNameField().setMaximumSize(new Dimension(50, 60));
-                        ip.getHealthSpinner().setMaximumSize(new Dimension(50, 20));
-                        ip.getArmorSpinner().setMaximumSize(new Dimension(50, 20));
+            // Pyydetään kenttien suosikkikoko
+            Dimension nameDimension = infoPanel.getNameField().getPreferredSize();
+            Dimension hSpinner = infoPanel.getHealthSpinner().getPreferredSize();
+            Dimension aSpinner = infoPanel.getArmorSpinner().getPreferredSize();
+            // Asetetaan minimikoko samaksi
+            window.setMinimumSize(window.getPreferredSize());
+            infoPanel.getNameField().setMinimumSize(nameDimension);
+            infoPanel.getHealthSpinner().setMinimumSize(hSpinner);
+            infoPanel.getArmorSpinner().setMinimumSize(aSpinner);
+            // diceRollPanel.difficultySelector.setMinimumSize(diceRollPanel.difficultySelector.getPreferredSize());
+            // Asetetaan leveys "äärettömäksi"
+            // dimension.width = Integer.MAX_VALUE;
 
-                        // ip.getHealthSpinner().setMaximumSize(ip.getHealthSpinner().getPreferredSize());
-                        // ip.getArmorSpinner().setMaximumSize(ip.getArmorSpinner().getPreferredSize());
+            infoPanel.getNameField().setMaximumSize(new Dimension(50, 60));
+            infoPanel.getHealthSpinner().setMaximumSize(new Dimension(50, 20));
+            infoPanel.getArmorSpinner().setMaximumSize(new Dimension(50, 20));
 
-                        // Kerrotaan ikkunalle, että se pitää uudelleenasemoida
-                        ip.getNameField().invalidate();
-                        ip.getHealthSpinner().invalidate();
-                        ip.getArmorSpinner().invalidate();
-                        window.validate();
+            // infoPanel.getHealthSpinner().setMaximumSize(infoPanel.getHealthSpinner().getPreferredSize());
+            // infoPanel.getArmorSpinner().setMaximumSize(infoPanel.getArmorSpinner().getPreferredSize());
 
-                        // Asetetaan ikkuna näkyviin
-                        window.setVisible(true);
-                    }
-                });
+            // Kerrotaan ikkunalle, että se pitää uudelleenasemoida
+            infoPanel.getNameField().invalidate();
+            infoPanel.getHealthSpinner().invalidate();
+            infoPanel.getArmorSpinner().invalidate();
+            window.validate();
 
-        // window.setVisible(true);
+            // Asetetaan ikkuna näkyviin
+            window.setVisible(true);
+
+        });
+
+        return window;
     }
 
 }

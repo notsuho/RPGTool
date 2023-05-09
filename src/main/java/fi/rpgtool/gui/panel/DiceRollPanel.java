@@ -1,6 +1,6 @@
 package fi.rpgtool.gui.panel;
 
-import fi.rpgtool.gui.RollButton;
+import fi.rpgtool.gui.element.RollButton;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;

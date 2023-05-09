@@ -1,6 +1,7 @@
 package fi.rpgtool.gui.panel;
 
 import fi.rpgtool.data.Character;
+import fi.rpgtool.data.CharacterHandler;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -21,9 +22,10 @@ public class SkillPanel extends JPanel {
             JSpinner spinner = new JSpinner(new SpinnerNumberModel(abilities.getValue().intValue(), 1, 5, 1));
             ((JSpinner.DefaultEditor) spinner.getEditor()).getTextField().setEditable(false);
 
+            spinner.addChangeListener(change -> CharacterHandler.getCharacter().setAbility(abilities.getKey(), (int) spinner.getValue()));
+
             this.add(new JTextField(abilities.getKey()));
             this.add(spinner);
-
         }
 
     }

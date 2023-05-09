@@ -1,4 +1,4 @@
-package fi.rpgtool.gui;
+package fi.rpgtool.gui.element;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
