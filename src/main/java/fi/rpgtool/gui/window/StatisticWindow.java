@@ -1,6 +1,6 @@
 package fi.rpgtool.gui.window;
 
-import fi.rpgtool.data.Character;
+import fi.rpgtool.data.Pair;
 import fi.rpgtool.gui.panel.AttributePanel;
 import fi.rpgtool.gui.panel.DiceRollPanel;
 import fi.rpgtool.gui.panel.InfoPanel;
@@ -19,19 +19,21 @@ public class StatisticWindow extends JPanel {
     /**
      * JPanel johon tulee hahmon tiedot, ominaisuudet, taidot ja nopanheitto
      */
-    public StatisticWindow(Character character) {
+    public StatisticWindow(MainWindow mainWindow) {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        this.infoPanel = new InfoPanel(character);
-        this.attributePanel = new AttributePanel(character);
-        this.skillPanel = new SkillPanel(character);
-        this.diceRollPanel = new DiceRollPanel();
+        this.infoPanel = new InfoPanel(mainWindow);
+        this.attributePanel = new AttributePanel(mainWindow);
+        this.skillPanel = new SkillPanel(mainWindow);
+        this.diceRollPanel = new DiceRollPanel(mainWindow);
 
         JPanel attributeAndSkillPanel = new JPanel();
         attributeAndSkillPanel.setLayout(new BoxLayout(attributeAndSkillPanel, BoxLayout.X_AXIS));
 
         attributeAndSkillPanel.add(attributePanel);
         attributeAndSkillPanel.add(skillPanel);
+
+        setSkillDropdownValues();
 
         this.add(infoPanel);
         this.add(attributeAndSkillPanel);
@@ -58,6 +60,20 @@ public class StatisticWindow extends JPanel {
             infoPanel.getHealthSpinner().invalidate();
             infoPanel.getArmorSpinner().invalidate();
         });
+    }
+
+    public void setSkillDropdownValues() {
+
+        JComboBox<String> skills = diceRollPanel.getSkillSelector();
+
+        skills.removeAllItems();
+
+        for (Pair<JTextField, JSpinner> skill : skillPanel.getData()) {
+            if (!skill.left.getText().isBlank()) {
+                skills.addItem(skill.left.getText());
+            }
+        }
+
     }
 
     public AttributePanel getAttributePanel() {

@@ -1,7 +1,7 @@
 package fi.rpgtool.gui.panel;
 
-import fi.rpgtool.data.Character;
 import fi.rpgtool.data.Pair;
+import fi.rpgtool.gui.window.MainWindow;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -14,14 +14,14 @@ public class AttributePanel extends JPanel {
     private static final String[] ATTRIBUTES = {"VOIMA", "ÄLY", "NOPEUS", "OVELUUS"};
     private final List<Pair<String, JSpinner>> data = new ArrayList<>();
 
-    public AttributePanel(Character character) {
+    public AttributePanel(MainWindow mainWindow) {
 
         this.setLayout(new GridLayout(4, 2));
         this.setBorder(new TitledBorder("OMINAISUUDET"));
 
         for (String attribute : ATTRIBUTES) {
 
-            int attributeValue = character.getAttribute(attribute);
+            int attributeValue = mainWindow.getCharacter().getAttribute(attribute);
 
             JSpinner spinner = new JSpinner(new SpinnerNumberModel(attributeValue, 10, 20, 1));
             ((JSpinner.DefaultEditor) spinner.getEditor()).getTextField().setEditable(false);

@@ -53,10 +53,6 @@ public class MainWindow extends JFrame {
         return character;
     }
 
-    public void setCharacter(Character character) {
-        this.character = character;
-    }
-
     public InventoryWindow getInventoryWindow() {
         return this.inventoryWindow;
     }

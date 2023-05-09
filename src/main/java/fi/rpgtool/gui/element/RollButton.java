@@ -1,5 +1,7 @@
 package fi.rpgtool.gui.element;
 
+import fi.rpgtool.gui.window.MainWindow;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,17 +12,19 @@ import java.util.concurrent.ThreadLocalRandom;
 public class RollButton extends JButton {
 
     private JComboBox<Integer> dieSelector = null;
-    private JComboBox<Integer> skillSelector = null;
+    private JComboBox<String> skillSelector = null;
     private JComboBox<Integer> difficultySelector = null;
 
     private static final int DEFAULT_DIE = 4;
-    private static final int DEFAULT_SKILL = 1;
     private static final int DEFAULT_DIFFICULTY = 5;
+
+    private final MainWindow mainWindow;
 
     /**
      * 
      */
-    public RollButton() {
+    public RollButton(MainWindow mainWindow) {
+        this.mainWindow = mainWindow;
         this.setText("HEITÄ NOPPAA");
         this.addMouseListener(new RollButtonClickListener(this));
     }
@@ -29,7 +33,7 @@ public class RollButton extends JButton {
         this.dieSelector = dieSelector;
     }
 
-    public void setSkillSelector(JComboBox<Integer> skillSelector) {
+    public void setSkillSelector(JComboBox<String> skillSelector) {
         this.skillSelector = skillSelector;
     }
 
@@ -46,13 +50,13 @@ public class RollButton extends JButton {
         return (int) this.dieSelector.getSelectedItem();
     }
 
-    public int getSkill() {
+    public String getSkill() {
 
         if (this.skillSelector == null || this.skillSelector.getSelectedItem() == null) {
-            return DEFAULT_SKILL;
+            return null;
         }
 
-        return (int) this.skillSelector.getSelectedItem();
+        return (String) this.skillSelector.getSelectedItem();
     }
 
     public int getDifficulty() {
@@ -92,7 +96,7 @@ public class RollButton extends JButton {
                         rollButton.setText("Silmäluku: " + result);
                     } else if (tick == ticks) {
 
-                        int skill = rollButton.getSkill();
+                        int skill = rollButton.mainWindow.getCharacter().getAbility(rollButton.getSkill());
 
                         result += skill;
 

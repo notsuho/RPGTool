@@ -17,8 +17,8 @@ public class RPGTool {
 
         MainWindow window = new MainWindow("NewUniqueNameForRPGTool2.json");
 
-        StatisticWindow statisticWindow = new StatisticWindow(window.getCharacter());
-        InventoryWindow inventoryWindow = new InventoryWindow(window.getCharacter());
+        StatisticWindow statisticWindow = new StatisticWindow(window);
+        InventoryWindow inventoryWindow = new InventoryWindow(window);
 
         JTabbedPane pane = new JTabbedPane();
 

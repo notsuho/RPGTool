@@ -8,6 +8,7 @@ import java.util.Map;
 public class Character {
 
     private static final int DEFAULT_ATTRIBUTE_VALUE = 10;
+    private static final int DEFAULT_SKILL_VALUE = 1;
 
     private final Map<String, Integer> attributes = new HashMap<>();
     private final Map<String, Integer> abilities = new HashMap<>();
@@ -60,6 +61,10 @@ public class Character {
 
     public int getAttribute(String key) {
         return attributes.getOrDefault(key, DEFAULT_ATTRIBUTE_VALUE);
+    }
+
+    public int getAbility(String key) {
+        return abilities.getOrDefault(key, DEFAULT_SKILL_VALUE);
     }
 
     public Map<String, Integer> getAbilities() {
