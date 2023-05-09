@@ -1,7 +1,6 @@
 package fi.rpgtool.gui.panel;
 
 import fi.rpgtool.data.Character;
-import fi.rpgtool.data.CharacterHandler;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -30,13 +29,13 @@ public class InfoPanel extends JPanel {
         this.healthSpinner.setBorder(new TitledBorder("Terveyspisteet"));
         this.healthSpinner.setPreferredSize(new Dimension(50, 20));
         ((JSpinner.DefaultEditor) healthSpinner.getEditor()).getTextField().setEditable(false);
-        this.healthSpinner.addChangeListener(change -> CharacterHandler.getCharacter().setHealth((int) this.healthSpinner.getValue()));
+        this.healthSpinner.addChangeListener(change -> character.setHealth((int) this.healthSpinner.getValue()));
 
         this.armorSpinner = new JSpinner(new SpinnerNumberModel(character.getArmor(), 10, 50, 1));
         this.armorSpinner.setBorder(new TitledBorder("Panssaripisteet"));
         this.armorSpinner.setPreferredSize(new Dimension(50, 20));
         ((JSpinner.DefaultEditor) armorSpinner.getEditor()).getTextField().setEditable(false);
-        this.armorSpinner.addChangeListener(change -> CharacterHandler.getCharacter().setArmor((int) this.armorSpinner.getValue()));
+        this.armorSpinner.addChangeListener(change -> character.setArmor((int) this.armorSpinner.getValue()));
 
         JPanel panel1 = new JPanel();
         panel1.setLayout(new BoxLayout(panel1, BoxLayout.X_AXIS));

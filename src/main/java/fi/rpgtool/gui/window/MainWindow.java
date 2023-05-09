@@ -1,16 +1,27 @@
 package fi.rpgtool.gui.window;
 
-import fi.rpgtool.data.CharacterHandler;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.stream.JsonReader;
+import fi.rpgtool.data.Character;
 import fi.rpgtool.data.Pair;
 import fi.rpgtool.gui.element.HelpDialog;
-import fi.rpgtool.gui.panel.SkillPanel;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 public class MainWindow extends JFrame {
+
+    private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
+
+    private Character character;
+    private File file;
 
     private StatisticWindow statisticWindow;
     private InventoryWindow inventoryWindow;
@@ -18,7 +29,10 @@ public class MainWindow extends JFrame {
     /**
      * 
      */
-    public MainWindow () {
+    public MainWindow(String filePath) {
+
+        this.file = new File(filePath);
+        load();
 
         this.setTitle("RPGTool");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -33,6 +47,14 @@ public class MainWindow extends JFrame {
 
     public void setInventoryWindow(InventoryWindow inventoryWindow) {
         this.inventoryWindow = inventoryWindow;
+    }
+
+    public Character getCharacter() {
+        return character;
+    }
+
+    public void setCharacter(Character character) {
+        this.character = character;
     }
 
     public InventoryWindow getInventoryWindow() {
@@ -99,7 +121,8 @@ public class MainWindow extends JFrame {
             int result = fileChooser.showOpenDialog(this);
 
             if (result == JFileChooser.APPROVE_OPTION) {
-                CharacterHandler.load(fileChooser.getSelectedFile());
+                this.file = fileChooser.getSelectedFile();
+                load();
             }
         });
 
@@ -122,25 +145,43 @@ public class MainWindow extends JFrame {
 
     }
 
-    private void save(File file) throws IOException {
+    public void save(File file) throws IOException {
 
         StatisticWindow stats = getStatisticWindow();
 
-        CharacterHandler.getCharacter().setName(stats.getInfoPanel().getNameField().getText());
+        character.setName(stats.getInfoPanel().getNameField().getText());
 
+        character.getAttributes().clear();
         for (Pair<String, JSpinner> attribute : stats.getAttributePanel().getData()) {
-            CharacterHandler.getCharacter().setAttribute(attribute.left, (int) attribute.right.getValue());
+            character.setAttribute(attribute.left, (int) attribute.right.getValue());
         }
 
+        character.getAbilities().clear();
         for (Pair<JTextField, JSpinner> ability : stats.getSkillPanel().getData()) {
-            CharacterHandler.getCharacter().setAbility(ability.left.getText(), (int) ability.right.getValue());
+            character.setAbility(ability.left.getText(), (int) ability.right.getValue());
         }
 
         if (file == null) {
-            CharacterHandler.save();
-        } else {
-            CharacterHandler.save(file);
+            file = this.file;
         }
 
+        if (file.isDirectory()) {
+            file = new File(file, character.getName().strip() + ".json");
+        }
+
+        Files.writeString(Path.of(file.getPath()), GSON.toJson(character, Character.class), StandardCharsets.UTF_8);
+    }
+
+    public void load() {
+
+        try {
+            JsonReader reader = new JsonReader(new FileReader(this.file, StandardCharsets.UTF_8));
+
+            this.character = GSON.fromJson(reader, Character.class);
+
+            reader.close();
+        } catch (IOException ex) {
+            this.character = new Character();
+        }
     }
 }

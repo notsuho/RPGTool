@@ -1,7 +1,5 @@
 package fi.rpgtool;
 
-import fi.rpgtool.data.Character;
-import fi.rpgtool.data.CharacterHandler;
 import fi.rpgtool.gui.panel.AttributePanel;
 import fi.rpgtool.gui.panel.DiceRollPanel;
 import fi.rpgtool.gui.panel.InfoPanel;
@@ -16,23 +14,20 @@ import java.awt.*;
 public class RPGTool {
 
     public static void main(String[] args) {
-
-        Character character = CharacterHandler.load("NewUniqueNameForRPGTool2.json");
-
         // Todennäköisesti turha osa, mutta sallii koodin jatkamisen tässä
-        MainWindow window = createWindow(character);
+        MainWindow window = createWindow();
     }
 
-    private static MainWindow createWindow(Character character) {
+    private static MainWindow createWindow() {
 
-        MainWindow window = new MainWindow();
+        MainWindow window = new MainWindow("NewUniqueNameForRPGTool2.json");
 
         StatisticWindow statisticWindow = new StatisticWindow();
         InventoryWindow inventoryWindow = new InventoryWindow();
 
-        InfoPanel infoPanel = new InfoPanel(character);
-        AttributePanel attributePanel = new AttributePanel(character);
-        SkillPanel skillPanel = new SkillPanel(character);
+        InfoPanel infoPanel = new InfoPanel(window.getCharacter());
+        AttributePanel attributePanel = new AttributePanel(window.getCharacter());
+        SkillPanel skillPanel = new SkillPanel(window.getCharacter());
         DiceRollPanel diceRollPanel = new DiceRollPanel();
 
         // lisää paneeleja niin saadaan attributet ja skillit asemoitua vierekkäin

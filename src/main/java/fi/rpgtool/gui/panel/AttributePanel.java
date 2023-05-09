@@ -1,7 +1,6 @@
 package fi.rpgtool.gui.panel;
 
 import fi.rpgtool.data.Character;
-import fi.rpgtool.data.CharacterHandler;
 import fi.rpgtool.data.Pair;
 
 import javax.swing.*;
