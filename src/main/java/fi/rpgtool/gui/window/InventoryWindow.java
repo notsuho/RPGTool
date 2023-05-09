@@ -11,7 +11,12 @@ public class InventoryWindow extends JPanel {
 
         // tänne esinelista ja muistiinpanokenttä
 
+        JLabel noteLabel = new JLabel("Muistiinpanot");
+        JTextArea textArea = new JTextArea();
 
+
+        this.add(noteLabel);
+        this.add(textArea);
     }
 
 

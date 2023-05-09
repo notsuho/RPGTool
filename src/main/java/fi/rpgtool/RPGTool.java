@@ -55,6 +55,14 @@ public class RPGTool {
         pane.setTabComponentAt(0, new JLabel("Statistics"));
         pane.setTabComponentAt(1, new JLabel("Inventory"));
 
+        // Datan hakemiseksi
+        statisticWindow.setAttributePanel(attributePanel);
+        statisticWindow.setInfoPanel(infoPanel);
+        statisticWindow.setSkillPanel(skillPanel);
+
+        window.setStatisticWindow(statisticWindow);
+        window.setInventoryWindow(inventoryWindow);
+
         // pane.setVisible(true);
         // window.setContentPane(pane);
         window.getContentPane().add(pane);

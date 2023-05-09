@@ -2,40 +2,51 @@ package fi.rpgtool.gui.panel;
 
 import fi.rpgtool.data.Character;
 import fi.rpgtool.data.CharacterHandler;
+import fi.rpgtool.data.Pair;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AttributePanel extends JPanel {
+
+    private final String[] ATTRIBUTES = {"VOIMA", "ÄLY", "NOPEUS", "OVELUUS"};
+
+    private final List<Pair<String, JSpinner>> data = new ArrayList<>();
 
     public AttributePanel(Character character) {
 
         this.setLayout(new GridLayout(4, 2));
         this.setBorder(new TitledBorder("OMINAISUUDET"));
 
-        for (Map.Entry<String, Integer> attribute : character.getAttributes().entrySet()) {
+        for (String attribute : ATTRIBUTES) {
 
-            JSpinner spinner = new JSpinner(new SpinnerNumberModel(attribute.getValue().intValue(), 10, 20, 1));
+            int attributeValue = character.getAttribute(attribute);
+
+            JSpinner spinner = new JSpinner(new SpinnerNumberModel(attributeValue, 10, 20, 1));
             ((JSpinner.DefaultEditor) spinner.getEditor()).getTextField().setEditable(false);
 
-            JLabel attributeBonus = new JLabel("+0");
+            JLabel attributeBonus = new JLabel("+" + (attributeValue - 10));
             attributeBonus.setHorizontalAlignment(SwingConstants.CENTER);
             attributeBonus.setBorder(new TitledBorder("BONUS"));
 
             // changelistener joka päivittää "bonus" kentän arvoa, tällä hetkellä vain
             // yksinkertainen bonus = ominaisuus - 10 niin ei mennä turhan monimutkaiseksi
-            spinner.addChangeListener(change -> {
-                CharacterHandler.getCharacter().setAttribute(attribute.getKey(), (int) spinner.getValue());
-                attributeBonus.setText("+" + ((int)spinner.getValue() - 10));
-            });
+            spinner.addChangeListener(change -> attributeBonus.setText("+" + ((int)spinner.getValue() - 10)));
 
-            this.add(new JLabel(attribute.getKey()));
+            data.add(new Pair<>(attribute, spinner));
+
+            this.add(new JLabel(attribute));
             this.add(spinner);
             this.add(attributeBonus);
         }
 
+    }
+
+    public List<Pair<String, JSpinner>> getData() {
+        return data;
     }
 
 }

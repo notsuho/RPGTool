@@ -7,6 +7,8 @@ import java.util.Map;
 
 public class Character {
 
+    private static final int DEFAULT_ATTRIBUTE_VALUE = 10;
+
     private String name = "";
     private int health = 10;
     private int armor = 10;
@@ -48,6 +50,10 @@ public class Character {
 
     public void removeAttribute(String key) {
         attributes.remove(key);
+    }
+
+    public int getAttribute(String key) {
+        return attributes.getOrDefault(key, DEFAULT_ATTRIBUTE_VALUE);
     }
 
     public Map<String, Integer> getAbilities() {
