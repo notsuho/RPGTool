@@ -49,7 +49,7 @@ public class StatisticWindow extends JPanel {
             infoPanel.getHealthSpinner().setMinimumSize(hSpinner);
             infoPanel.getArmorSpinner().setMinimumSize(aSpinner);
 
-            infoPanel.getNameField().setMaximumSize(new Dimension(50, 60));
+            infoPanel.getNameField().setMaximumSize(new Dimension(500, 60));
             infoPanel.getHealthSpinner().setMaximumSize(new Dimension(50, 20));
             infoPanel.getArmorSpinner().setMaximumSize(new Dimension(50, 20));
 

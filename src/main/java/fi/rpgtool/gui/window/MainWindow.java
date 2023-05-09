@@ -36,7 +36,7 @@ public class MainWindow extends JFrame {
 
         this.setTitle("RPGTool");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setPreferredSize(new Dimension(600, 700));
+        this.setPreferredSize(new Dimension(600, 800));
         this.setLocationRelativeTo(null);
         this.setLayout(new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS));
         // tän voi pistää falseksi jos ei halua käyttäjän muokkaavan ikkunan kokoa
@@ -160,6 +160,8 @@ public class MainWindow extends JFrame {
         for (Pair<JTextField, JSpinner> ability : stats.getSkillPanel().getData()) {
             character.setAbility(ability.left.getText(), (int) ability.right.getValue());
         }
+
+        character.setNotes(getInventoryWindow().getNotes().getText());
 
         if (file == null) {
             file = this.file;
