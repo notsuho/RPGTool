@@ -2,7 +2,9 @@ package fi.rpgtool.gui.panel;
 
 import fi.rpgtool.data.Character;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 
 import javax.swing.*;
@@ -16,12 +18,13 @@ public class InfoPanel extends JPanel {
 
     public InfoPanel(Character character) {
 
-        this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+        // this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+        this.setLayout(new GridLayout(1, 2));
         this.setBorder(new TitledBorder("HAHMON TIEDOT"));
 
         this.nameField = new JTextField(character.getName(), 25);
         this.nameField.setBorder(new TitledBorder("Hahmon nimi"));
-        this.nameField.setPreferredSize(new Dimension(50, 20));
+        this.nameField.setPreferredSize(new Dimension(50, 40));
 
         // laitetaan spinnerin tekstikentän editointi pois päältä,
         // niin käyttäjä voi muokata sitä vain nuolinappien avulla
@@ -36,16 +39,24 @@ public class InfoPanel extends JPanel {
         this.armorSpinner.setPreferredSize(new Dimension(50, 20));
         ((JSpinner.DefaultEditor) armorSpinner.getEditor()).getTextField().setEditable(false);
 
-        this.add(new JLabel(new ImageIcon("src/main/resources/kuva-isompi.jpg")));
-        this.add(this.nameField);
+        JPanel panel1 = new JPanel();
+        panel1.setLayout(new BoxLayout(panel1, BoxLayout.X_AXIS));
+        panel1.add(new JLabel(new ImageIcon("src/main/resources/kuva-isompi.jpg")));
+        panel1.add(this.nameField);
 
-        JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(2, 1));
+        JPanel panel2 = new JPanel();
+        // panel2.setLayout(new BoxLayout(panel2, BoxLayout.X_AXIS));
+        panel2.setLayout(new GridLayout(2, 2));
+        // panel2.setLayout(new FlowLayout(1));
+        // panel2.setBorder(new TitledBorder("TESTI"));
 
-        panel.add(this.healthSpinner);
-        panel.add(this.armorSpinner);
+        panel2.add(new JLabel(new ImageIcon("src/main/resources/hp-heart.jpg")));
+        panel2.add(this.healthSpinner);
+        panel2.add(new JLabel(new ImageIcon("src/main/resources/armor-shield.jpg")));
+        panel2.add(this.armorSpinner);
 
-        this.add(panel);
+        this.add(panel1);
+        this.add(panel2);
     }
 
     public JTextField getNameField() {

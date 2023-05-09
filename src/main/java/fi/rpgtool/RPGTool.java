@@ -29,8 +29,8 @@ public class RPGTool {
         character.setAbility("Koodaus", 2);
         character.setAbility("Kova äijä", 3);
 
-        character.addInventoryItem("Taikajuoma x2");
-        character.addInventoryItem("Taikamiekka x1");
+        // character.addInventoryItem("Taikajuoma x2");
+        // character.addInventoryItem("Taikamiekka x1");
 
         CharacterHandler.save();
 
@@ -85,24 +85,24 @@ public class RPGTool {
         // saavan järkevästi vaihdettua joksikin toiseksi... Eli tehdään tyhjä jpane
         // halutulla layoutilla, johon laitetaan halutut alipaneelit, ja joka sitten
         // vielä isketään myöhemmin tabbedpaneen. Woo, inception
-        JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        // JPanel panel = new JPanel();
+        // panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
-        panel.add(ip);
+        // panel.add(ip);
 
         // lisää paneeleja niin saadaan attributet ja skillit asemoitua vierekkäin
+
         JPanel apAndSp = new JPanel();
         apAndSp.setLayout(new BoxLayout(apAndSp, BoxLayout.X_AXIS));
 
         apAndSp.add(ap);
         apAndSp.add(sp);
 
-        panel.add(apAndSp);
-        // panel.add(ap);
-        // panel.add(sp);
-        panel.add(drp);
+        statisticWindow.add(ip);
+        statisticWindow.add(apAndSp);
+        statisticWindow.add(drp);
 
-        statisticWindow.add(panel);
+        // statisticWindow.add(panel);
 
         // vanha toteutus ennen kuin aloin tappelemaan jtabbedpane layouttien kanssa
         // statisticWindow.add(ip);
@@ -133,7 +133,7 @@ public class RPGTool {
         SwingUtilities.invokeLater(
                 new Runnable() {
                     public void run() {
-                        // Pyydetään tekstikentän suosikkikoko
+                        // Pyydetään kenttien suosikkikoko
                         Dimension nameDimension = ip.getNameField().getPreferredSize();
                         Dimension hSpinner = ip.getHealthSpinner().getPreferredSize();
                         Dimension aSpinner = ip.getArmorSpinner().getPreferredSize();
