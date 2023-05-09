@@ -22,25 +22,8 @@ public class RPGTool {
 
         MainWindow window = new MainWindow("NewUniqueNameForRPGTool2.json");
 
-        StatisticWindow statisticWindow = new StatisticWindow();
-        InventoryWindow inventoryWindow = new InventoryWindow();
-
-        InfoPanel infoPanel = new InfoPanel(window.getCharacter());
-        AttributePanel attributePanel = new AttributePanel(window.getCharacter());
-        SkillPanel skillPanel = new SkillPanel(window.getCharacter());
-        DiceRollPanel diceRollPanel = new DiceRollPanel();
-
-        // lisää paneeleja niin saadaan attributet ja skillit asemoitua vierekkäin
-
-        JPanel attributeAndSkillPanel = new JPanel();
-        attributeAndSkillPanel.setLayout(new BoxLayout(attributeAndSkillPanel, BoxLayout.X_AXIS));
-
-        attributeAndSkillPanel.add(attributePanel);
-        attributeAndSkillPanel.add(skillPanel);
-
-        statisticWindow.add(infoPanel);
-        statisticWindow.add(attributeAndSkillPanel);
-        statisticWindow.add(diceRollPanel);
+        StatisticWindow statisticWindow = new StatisticWindow(window.getCharacter());
+        InventoryWindow inventoryWindow = new InventoryWindow(window.getCharacter());
 
         JTabbedPane pane = new JTabbedPane();
 
@@ -51,50 +34,20 @@ public class RPGTool {
         pane.setTabComponentAt(1, new JLabel("Inventory"));
 
         // Datan hakemiseksi
-        statisticWindow.setAttributePanel(attributePanel);
-        statisticWindow.setInfoPanel(infoPanel);
-        statisticWindow.setSkillPanel(skillPanel);
-
         window.setStatisticWindow(statisticWindow);
         window.setInventoryWindow(inventoryWindow);
 
-        // pane.setVisible(true);
-        // window.setContentPane(pane);
         window.getContentPane().add(pane);
         window.pack();
 
-        // näitä ehdottomasti kannattaa siistiä heti kun kerkeää
         SwingUtilities.invokeLater(() -> {
 
-            // Pyydetään kenttien suosikkikoko
-            Dimension nameDimension = infoPanel.getNameField().getPreferredSize();
-            Dimension hSpinner = infoPanel.getHealthSpinner().getPreferredSize();
-            Dimension aSpinner = infoPanel.getArmorSpinner().getPreferredSize();
             // Asetetaan minimikoko samaksi
             window.setMinimumSize(window.getPreferredSize());
-            infoPanel.getNameField().setMinimumSize(nameDimension);
-            infoPanel.getHealthSpinner().setMinimumSize(hSpinner);
-            infoPanel.getArmorSpinner().setMinimumSize(aSpinner);
-            // diceRollPanel.difficultySelector.setMinimumSize(diceRollPanel.difficultySelector.getPreferredSize());
-            // Asetetaan leveys "äärettömäksi"
-            // dimension.width = Integer.MAX_VALUE;
-
-            infoPanel.getNameField().setMaximumSize(new Dimension(50, 60));
-            infoPanel.getHealthSpinner().setMaximumSize(new Dimension(50, 20));
-            infoPanel.getArmorSpinner().setMaximumSize(new Dimension(50, 20));
-
-            // infoPanel.getHealthSpinner().setMaximumSize(infoPanel.getHealthSpinner().getPreferredSize());
-            // infoPanel.getArmorSpinner().setMaximumSize(infoPanel.getArmorSpinner().getPreferredSize());
-
-            // Kerrotaan ikkunalle, että se pitää uudelleenasemoida
-            infoPanel.getNameField().invalidate();
-            infoPanel.getHealthSpinner().invalidate();
-            infoPanel.getArmorSpinner().invalidate();
             window.validate();
 
             // Asetetaan ikkuna näkyviin
             window.setVisible(true);
-
         });
 
         return window;
