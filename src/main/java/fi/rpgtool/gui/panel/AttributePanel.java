@@ -11,8 +11,7 @@ import java.util.List;
 
 public class AttributePanel extends JPanel {
 
-    private final String[] ATTRIBUTES = {"VOIMA", "ÄLY", "NOPEUS", "OVELUUS"};
-
+    private static final String[] ATTRIBUTES = {"VOIMA", "ÄLY", "NOPEUS", "OVELUUS"};
     private final List<Pair<String, JSpinner>> data = new ArrayList<>();
 
     public AttributePanel(Character character) {

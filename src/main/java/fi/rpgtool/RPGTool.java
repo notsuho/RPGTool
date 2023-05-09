@@ -1,15 +1,10 @@
 package fi.rpgtool;
 
-import fi.rpgtool.gui.panel.AttributePanel;
-import fi.rpgtool.gui.panel.DiceRollPanel;
-import fi.rpgtool.gui.panel.InfoPanel;
-import fi.rpgtool.gui.panel.SkillPanel;
 import fi.rpgtool.gui.window.InventoryWindow;
 import fi.rpgtool.gui.window.MainWindow;
 import fi.rpgtool.gui.window.StatisticWindow;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class RPGTool {
 

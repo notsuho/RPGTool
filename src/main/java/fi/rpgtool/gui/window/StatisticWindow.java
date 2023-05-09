@@ -11,9 +11,10 @@ import java.awt.*;
 
 public class StatisticWindow extends JPanel {
 
-    private AttributePanel attributePanel;
-    private InfoPanel infoPanel;
-    private SkillPanel skillPanel;
+    private final AttributePanel attributePanel;
+    private final InfoPanel infoPanel;
+    private final SkillPanel skillPanel;
+    private final DiceRollPanel diceRollPanel;
 
     /**
      * JPanel johon tulee hahmon tiedot, ominaisuudet, taidot ja nopanheitto
@@ -21,10 +22,10 @@ public class StatisticWindow extends JPanel {
     public StatisticWindow(Character character) {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        InfoPanel infoPanel = new InfoPanel(character);
-        AttributePanel attributePanel = new AttributePanel(character);
-        SkillPanel skillPanel = new SkillPanel(character);
-        DiceRollPanel diceRollPanel = new DiceRollPanel();
+        this.infoPanel = new InfoPanel(character);
+        this.attributePanel = new AttributePanel(character);
+        this.skillPanel = new SkillPanel(character);
+        this.diceRollPanel = new DiceRollPanel();
 
         JPanel attributeAndSkillPanel = new JPanel();
         attributeAndSkillPanel.setLayout(new BoxLayout(attributeAndSkillPanel, BoxLayout.X_AXIS));
@@ -35,10 +36,6 @@ public class StatisticWindow extends JPanel {
         this.add(infoPanel);
         this.add(attributeAndSkillPanel);
         this.add(diceRollPanel);
-
-        this.setAttributePanel(attributePanel);
-        this.setInfoPanel(infoPanel);
-        this.setSkillPanel(skillPanel);
 
         SwingUtilities.invokeLater(() -> {
 
@@ -63,28 +60,20 @@ public class StatisticWindow extends JPanel {
         });
     }
 
-    public void setAttributePanel(AttributePanel attributePanel) {
-        this.attributePanel = attributePanel;
-    }
-
     public AttributePanel getAttributePanel() {
         return attributePanel;
-    }
-
-    public void setInfoPanel(InfoPanel infoPanel) {
-        this.infoPanel = infoPanel;
     }
 
     public InfoPanel getInfoPanel() {
         return infoPanel;
     }
 
-    public void setSkillPanel(SkillPanel skillPanel) {
-        this.skillPanel = skillPanel;
-    }
-
     public SkillPanel getSkillPanel() {
         return skillPanel;
+    }
+
+    public DiceRollPanel getDiceRollPanel() {
+        return diceRollPanel;
     }
 
 }
