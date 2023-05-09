@@ -12,7 +12,7 @@ public class MainWindow extends JFrame {
 
         this.setTitle("RPGTool");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setPreferredSize(new Dimension(700, 900));
+        this.setPreferredSize(new Dimension(600, 700));
         this.setLocationRelativeTo(null);
         this.setLayout(new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS));
         // tän voi pistää falseksi jos ei halua käyttäjän muokkaavan ikkunan kokoa

@@ -134,12 +134,14 @@ public class RPGTool {
                 new Runnable() {
                     public void run() {
                         // Pyydetään tekstikentän suosikkikoko
-                        // Dimension dimension = ip.getNameField().getPreferredSize();
+                        Dimension nameDimension = ip.getNameField().getPreferredSize();
+                        Dimension hSpinner = ip.getHealthSpinner().getPreferredSize();
+                        Dimension aSpinner = ip.getArmorSpinner().getPreferredSize();
                         // Asetetaan minimikoko samaksi
                         window.setMinimumSize(window.getPreferredSize());
-                        ip.getNameField().setMinimumSize(ip.getNameField().getPreferredSize());
-                        ip.getHealthSpinner().setMinimumSize(ip.getHealthSpinner().getPreferredSize());
-                        ip.getArmorSpinner().setMinimumSize(ip.getArmorSpinner().getPreferredSize());
+                        ip.getNameField().setMinimumSize(nameDimension);
+                        ip.getHealthSpinner().setMinimumSize(hSpinner);
+                        ip.getArmorSpinner().setMinimumSize(aSpinner);
                         // drp.difficultySelector.setMinimumSize(drp.difficultySelector.getPreferredSize());
                         // Asetetaan leveys "äärettömäksi"
                         // dimension.width = Integer.MAX_VALUE;
