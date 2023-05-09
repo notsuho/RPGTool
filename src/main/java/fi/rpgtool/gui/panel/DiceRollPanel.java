@@ -16,31 +16,53 @@ public class DiceRollPanel extends JPanel {
     // Ladataan tämän tiedot jostain configista jos sen tekemiseen jää aikaa
     public DiceRollPanel() {
 
-        this.setLayout(new GridLayout(5, 2));
+        this.setLayout(new GridLayout(1,3));
         this.setBorder(new TitledBorder("NOPANHEITTO"));
 
         this.difficultySelector = new JComboBox<>();
-        this.skillSelector = new JComboBox<>();
-        this.attributeSelector = new JComboBox<>();
-        this.dieSelector = new JComboBox<>();
+        this.difficultySelector.setBorder(new TitledBorder("Valitse kohdeluku:"));
+        // this.difficultySelector.setPreferredSize(new Dimension(100, 30));
 
-        this.add(new JLabel("Valitse kohdeluku:"));
-        this.add(this.difficultySelector);
-        this.add(new JLabel("Valitse taito:"));
-        this.add(this.skillSelector);
-        this.add(new JLabel("Valitse ominaisuus:"));
-        this.add(this.attributeSelector);
-        this.add(new JLabel("Nopan koko:"));
-        this.add(this.dieSelector);
+        this.skillSelector = new JComboBox<>();
+        this.skillSelector.setBorder(new TitledBorder("Valitse taito:"));
+        this.skillSelector.setPreferredSize(new Dimension(100, 30));
+
+        this.attributeSelector = new JComboBox<>();
+        this.attributeSelector.setBorder(new TitledBorder("Valitse ominaisuus:"));
+        // this.attributeSelector.setPreferredSize(new Dimension(100, 30));
+
+        this.dieSelector = new JComboBox<>();
+        this.dieSelector.setBorder(new TitledBorder("Valitse nopan koko:"));
+        // this.dieSelector.setPreferredSize(new Dimension(100, 30));
 
         RollButton rollButton = new RollButton();
         rollButton.setPreferredSize(new Dimension(50, 50));
 
+        JPanel drpLeft = new JPanel();
+        // drpLeft.setLayout(new GridLayout(2, 1));
+        drpLeft.setLayout(new BoxLayout(drpLeft, BoxLayout.Y_AXIS));
+        drpLeft.add(this.skillSelector);
+        drpLeft.add(Box.createVerticalGlue());
+        drpLeft.add(this.attributeSelector);
+
+        JPanel drpRight = new JPanel();
+        // drpRight.setLayout(new GridLayout(2, 1));
+        drpRight.setLayout(new BoxLayout(drpRight, BoxLayout.Y_AXIS));
+        drpRight.add(this.difficultySelector);
+        drpRight.add(Box.createVerticalGlue());
+        drpRight.add(this.dieSelector);
+
+        // this.add(this.skillSelector);
+        // this.add(this.attributeSelector);
+        this.add(drpLeft);
+        this.add(rollButton);
+        this.add(drpRight);
+        // this.add(this.difficultySelector);
+        // this.add(this.dieSelector);
+
         rollButton.setDieSelector(this.dieSelector);
         rollButton.setSkillSelector(this.skillSelector);
         rollButton.setDifficultySelector(this.difficultySelector);
-
-        this.add(rollButton);
 
         initValues();
     }

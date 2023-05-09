@@ -17,6 +17,9 @@ public class RollButton extends JButton {
     private static final int DEFAULT_SKILL = 1;
     private static final int DEFAULT_DIFFICULTY = 5;
 
+    /**
+     * 
+     */
     public RollButton() {
         this.setText("HEITÄ NOPPAA");
         this.addMouseListener(new RollButtonClickListener(this));
