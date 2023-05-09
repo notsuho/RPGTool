@@ -48,6 +48,7 @@ public class SkillPanel extends JPanel {
 
         JTextField textField = new JTextField(skillKey);
         JSpinner spinner = new JSpinner(new SpinnerNumberModel(skillValue, 1, 5, 1));
+        ((JSpinner.DefaultEditor) spinner.getEditor()).getTextField().setEditable(false);
 
         this.add(textField);
         this.add(spinner);

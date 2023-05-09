@@ -43,9 +43,7 @@ public class InfoPanel extends JPanel {
 
         JPanel healthPanel = new JPanel();
 
-        GridBagLayout layout = new GridBagLayout();
-
-        healthPanel.setLayout(layout);
+        healthPanel.setLayout(new GridBagLayout());
         healthPanel.setPreferredSize(new Dimension(200, 100));
 
         JLabel heartLabel = new JLabel(new ImageIcon("src/main/resources/hp-heart.jpg"));
@@ -61,14 +59,14 @@ public class InfoPanel extends JPanel {
         healthPanel.add(armorLabel, makeConstraints(0, 1));
         healthPanel.add(this.armorSpinner, makeConstraints(1, 1));
 
-        add(namePanel, 0, 1);
+        this.add(namePanel, makeConstraints(0, 0));
 
         JLabel label = new JLabel();
         label.setPreferredSize(new Dimension(80, 30));
         label.setMinimumSize(label.getPreferredSize());
 
-        add(label, 1, 1);
-        add(healthPanel, 2, 1);
+        this.add(label, makeConstraints(1, 0));
+        this.add(healthPanel, makeConstraints(2, 0));
 
         this.setMaximumSize(new Dimension(600, 200));
     }
@@ -81,17 +79,6 @@ public class InfoPanel extends JPanel {
         constraints.gridy = gridy;
 
         return constraints;
-    }
-
-    private void add(Component component, int gridx, int gridwidth) {
-
-        GridBagConstraints constraints = new GridBagConstraints();
-
-        constraints.gridx = gridx;
-        constraints.gridy = 0;
-        constraints.gridwidth = gridwidth;
-
-        this.add(component, constraints);
     }
 
     public JTextField getNameField() {
