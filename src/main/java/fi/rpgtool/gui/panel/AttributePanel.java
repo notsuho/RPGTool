@@ -9,9 +9,12 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Attribuuttipaneeli eli ominaisuuspaneeli. Sisältää tietoa hahmon ominaisuuksista, joista saa bonuksia nopanheittoon.
+ */
 public class AttributePanel extends JPanel {
 
-    private static final String[] ATTRIBUTES = {"VOIMA", "ÄLY", "NOPEUS", "OVELUUS"};
+    private static final String[] ATTRIBUTE_VALUES = {"VOIMA", "ÄLY", "NOPEUS", "OVELUUS"};
     private final List<Pair<String, JSpinner>> data = new ArrayList<>();
 
     public AttributePanel(MainWindow mainWindow) {
@@ -19,7 +22,7 @@ public class AttributePanel extends JPanel {
         this.setLayout(new GridLayout(4, 2));
         this.setBorder(new TitledBorder("OMINAISUUDET"));
 
-        for (String attribute : ATTRIBUTES) {
+        for (String attribute : ATTRIBUTE_VALUES) {
 
             int attributeValue = mainWindow.getCharacter().getAttribute(attribute);
 

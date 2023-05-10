@@ -48,12 +48,6 @@ public class ScrollablePanel extends JPanel {
         updateLastAndRevalidate();
     }
 
-    public void removeItem(int i) {
-        cells.remove(i);
-        items.remove(i);
-        updateLastAndRevalidate();
-    }
-
     public void removeItem(CellPanel panel) {
         cells.remove(panel);
         items.remove(panel);

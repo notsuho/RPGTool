@@ -6,6 +6,9 @@ import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 
+/**
+ * Infopaneeli joka sisältää valitun hahmon perustiedot kuten nimen, terveyspisteet ja panssaripisteet.
+ */
 public class InfoPanel extends JPanel {
 
     private final JTextField nameField;

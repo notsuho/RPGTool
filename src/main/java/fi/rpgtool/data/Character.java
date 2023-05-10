@@ -5,6 +5,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Dataluokka varsinaiselle hahmolle.
+ * GSON osaa lukea JSON tiedoston tämän luokan instanssiksi, ja osaa myös kirjoittaa uuden JSON tiedoston tämän luokan perusteella.
+ */
 public class Character {
 
     private static final int DEFAULT_ATTRIBUTE_VALUE = 10;
