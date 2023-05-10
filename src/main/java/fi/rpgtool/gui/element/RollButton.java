@@ -9,6 +9,10 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.concurrent.ThreadLocalRandom;
 
+/**
+ * Varsinainen nopanheittonappi. Nappia painettaessa se generoi satunnaisen luvun välillä [1, nopankoko] + attribuutin arvo + taidon arvo.
+ * Attribuutin arvo ja taidon arvo haetaan niiden omista paneeleista automaattisesti nopanheittopaneelissa valittujen arvojen perusteella.
+ */
 public class RollButton extends JButton {
 
     private JComboBox<Integer> dieSelector = null;
@@ -23,9 +27,6 @@ public class RollButton extends JButton {
 
     private final MainWindow mainWindow;
 
-    /**
-     * 
-     */
     public RollButton(MainWindow mainWindow) {
         this.mainWindow = mainWindow;
         this.setText("HEITÄ NOPPAA");
