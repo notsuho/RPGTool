@@ -28,12 +28,7 @@ public class ScrollablePanel extends JPanel {
     public void addItems(List<String> items) {
 
         for (String item : items) {
-
-            CellPanel cellPanel = new CellPanel(item, this);
-
-            cells.add(cellPanel);
-            this.items.add(cellPanel);
-            updateLastAndRevalidate();
+            addItem(item);
         }
     }
 
