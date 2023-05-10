@@ -37,9 +37,14 @@ public class ScrollablePanel extends JPanel {
         int index = 0;
 
         for (CellPanel panel : cells) {
+
             panel.setIndex(index);
-            items.add(panel);
+
             index++;
+
+            panel.setLast(index == cells.size());
+
+            items.add(panel);
         }
 
         items.revalidate();
@@ -54,14 +59,15 @@ public class ScrollablePanel extends JPanel {
 
         private static final int GAP = 4;
 
+        private final ScrollablePanel parent;
         private final JTextField textField;
         private final JButton button;
         private int index;
-        private boolean isLast = false;
 
         public CellPanel(ScrollablePanel parent, int index) {
 
             this.index = index;
+            this.parent = parent;
 
             setLayout(new BorderLayout());
 
@@ -74,13 +80,6 @@ public class ScrollablePanel extends JPanel {
             textField.setPreferredSize(new Dimension(500, 30));
 
             this.button = new JButton();
-
-            if (isLast) {
-                button.setText("+");
-            } else {
-                button.setText("X");
-                button.addActionListener(action -> parent.removeItem(getIndex()));
-            }
 
             this.add(button, BorderLayout.EAST);
             this.add(textField, BorderLayout.WEST);
@@ -95,7 +94,17 @@ public class ScrollablePanel extends JPanel {
         }
 
         public void setLast(boolean last) {
-            this.isLast = last;
+
+            if (last) {
+                button.removeAll();
+                button.setText("+");
+                button.addActionListener(action -> parent.addItem(getIndex() + 1));
+            } else {
+                button.removeAll();
+                button.setText("X");
+                button.addActionListener(action -> parent.removeItem(getIndex()));
+            }
+
         }
 
         public JTextField getTextField() {
