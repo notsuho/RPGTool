@@ -13,7 +13,7 @@ public class RPGTool {
         MainWindow window = createWindow();
     }
 
-    private static MainWindow createWindow() {
+    public static MainWindow createWindow() {
 
         MainWindow window = new MainWindow("NewUniqueNameForRPGTool2.json");
 

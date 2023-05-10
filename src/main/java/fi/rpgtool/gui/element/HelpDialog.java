@@ -25,14 +25,14 @@ public class HelpDialog extends JDialog {
 
         reader.close();
 
-        JPanel buttonPanel = new JPanel();
         JButton closeButton = new JButton("Sulje");
-        buttonPanel.add(closeButton);
-        this.add(helpText, BorderLayout.CENTER);
-        this.add(buttonPanel, BorderLayout.PAGE_END);
-
         closeButton.addActionListener(action -> this.dispose());
 
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.add(closeButton);
+
+        this.add(helpText, BorderLayout.CENTER);
+        this.add(buttonPanel, BorderLayout.PAGE_END);
         this.setVisible(true);
     }
 }
