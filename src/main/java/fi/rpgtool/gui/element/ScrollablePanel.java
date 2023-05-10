@@ -82,7 +82,9 @@ public class ScrollablePanel extends JPanel {
 
             this.parent = parent;
 
-            setLayout(new BorderLayout());
+            this.setLayout(new BorderLayout());
+            this.setPreferredSize(new Dimension(500, 50));
+            this.setMaximumSize(new Dimension(Integer.MAX_VALUE, 50));
 
             Border emptyBorder = BorderFactory.createEmptyBorder(GAP, GAP, GAP, GAP);
             Border lineBorder = BorderFactory.createLineBorder(Color.black);
