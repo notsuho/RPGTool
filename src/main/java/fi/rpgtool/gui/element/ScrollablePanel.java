@@ -75,7 +75,7 @@ public class ScrollablePanel extends JPanel {
         return cells;
     }
 
-    private static class CellPanel extends JPanel {
+    public static class CellPanel extends JPanel {
 
         private static final int GAP = 4;
 

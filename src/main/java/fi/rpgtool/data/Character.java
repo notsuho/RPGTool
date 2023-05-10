@@ -8,7 +8,6 @@ import java.util.Map;
 public class Character {
 
     private static final int DEFAULT_ATTRIBUTE_VALUE = 10;
-    private static final int DEFAULT_SKILL_VALUE = 1;
 
     private final Map<String, Integer> attributes = new HashMap<>();
     private final Map<String, Integer> skills = new HashMap<>();
@@ -17,7 +16,7 @@ public class Character {
     private int health = 10;
     private int armor = 10;
     private String notes;
-    private List<String> inventory = new ArrayList<>();
+    private final List<String> inventory = new ArrayList<>();
 
     public String getName() {
         return name;
@@ -63,10 +62,6 @@ public class Character {
         return attributes.getOrDefault(key, DEFAULT_ATTRIBUTE_VALUE);
     }
 
-    public int getSkill(String key) {
-        return skills.getOrDefault(key, DEFAULT_SKILL_VALUE);
-    }
-
     public Map<String, Integer> getSkills() {
         return skills;
     }
@@ -79,16 +74,8 @@ public class Character {
         return inventory;
     }
 
-    public void setInventory(List<String> inventory) {
-        this.inventory = inventory;
-    }
-
     public void addInventoryItem(String item) {
         inventory.add(item);
-    }
-
-    public void removeInventoryItem(int index) {
-        inventory.remove(index);
     }
 
 }

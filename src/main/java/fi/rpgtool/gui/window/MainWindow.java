@@ -6,6 +6,7 @@ import com.google.gson.stream.JsonReader;
 import fi.rpgtool.data.Character;
 import fi.rpgtool.data.Pair;
 import fi.rpgtool.gui.element.HelpDialog;
+import fi.rpgtool.gui.element.ScrollablePanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -138,7 +139,6 @@ public class MainWindow extends JFrame {
         help.add(m4);
 
         this.setMenuBar(menu);
-
     }
 
     public void save(File file) throws IOException {
@@ -158,6 +158,17 @@ public class MainWindow extends JFrame {
         }
 
         character.setNotes(getInventoryWindow().getNotes().getText());
+
+        character.getInventory().clear();
+        for (ScrollablePanel.CellPanel panel : getInventoryWindow().getItems().getCells()) {
+
+            String text = panel.getTextField().getText();
+
+            if (!text.isBlank()) {
+                character.addInventoryItem(text);
+            }
+
+        }
 
         if (file == null) {
             file = this.file;
