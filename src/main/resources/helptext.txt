@@ -1,1 +1,19 @@
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+RPGTool on työkalu hahmon luomiseen roolipeliä pelatessa. Se on jaettu kahteen tabiin joiden välillä voit vaihdella, "statistics" ja "inventory."
+
+Inventory sisältää paikan lisätä ja poistaa hahmolla olevia tavaroita, sekä tilaa muistiinpanoille. Statistics sisältää hahmon tiedot.
+
+Ylimpänä ovat hahmon nimi, ja terveys- ja panssaripisteet. On myös kohta hahmon kuvalle.
+
+Keskellä ovat hahmon ominaisuudet ja taidot. Ominaisuudet kuvastavat hahmon fyysisiä ja henkisiä kykyjä, arvovälillä 10-20. Kun hahmosi tekee jotain roolipelissä, joka vaatii nopan heittoa, valitse heittoon sopiva ominaisuus ja lisää sen bonus tulokseen.
+
+VOIMA: Hahmon fyysinen vahvuus ja kestävyys.
+
+ÄLY: Hahmon kyky muistaa asioita ja ajatella analyyttisesti.
+
+NOPEUS: Hahmon kyky liikkua nopeasti ja ketterästi, sekä myös reaktioaika.
+
+OVELUUS: Hahmon kyky huomata asioita ja toimia sosiaalisissa tilanteissa.
+
+Taidot kuvastavat hahmon omaamia muita kykyjä, kuten koulutuksen tai kasvatuksen kautta opittuja. Tällaisia voivat olla esimerkiksi "Velhon oppipoika" tai "Ihan oikeasti susien kasvattama". Jos hahmosi taito voisi perustellusti auttaa siinä, mitä hahmosi yrittää tehdä, voit lisätä sen arvon heittotulokseen.
+
+Alimpana on nopanheittonäkymä, jossa voit valita heittoon lisättävän taidon ja ominaisuuden, ylitettävän kohdeluvun, sekä heitettävän nopan koon. Keskellä olevaa "heitä noppaa" nappia painamalla näet heittotuloksesi.
