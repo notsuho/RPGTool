@@ -53,6 +53,7 @@ public class DiceRollPanel extends JPanel {
         this.add(drpRight);
 
         rollButton.setDieSelector(this.dieSelector);
+        rollButton.setAttributeSelector(this.attributeSelector);
         rollButton.setSkillSelector(this.skillSelector);
         rollButton.setDifficultySelector(this.difficultySelector);
 

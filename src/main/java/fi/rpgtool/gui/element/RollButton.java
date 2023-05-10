@@ -13,9 +13,12 @@ public class RollButton extends JButton {
 
     private JComboBox<Integer> dieSelector = null;
     private JComboBox<String> skillSelector = null;
+    private JComboBox<String> attributeSelector = null;
     private JComboBox<Integer> difficultySelector = null;
 
     private static final int DEFAULT_DIE = 4;
+    private static final int DEFAULT_SKILL = 1;
+    private static final int DEFAULT_ATTRIBUTE = 10;
     private static final int DEFAULT_DIFFICULTY = 5;
 
     private final MainWindow mainWindow;
@@ -31,6 +34,10 @@ public class RollButton extends JButton {
 
     public void setDieSelector(JComboBox<Integer> dieSelector) {
         this.dieSelector = dieSelector;
+    }
+
+    public void setAttributeSelector(JComboBox<String> attributeSelector) {
+        this.attributeSelector = attributeSelector;
     }
 
     public void setSkillSelector(JComboBox<String> skillSelector) {
@@ -50,10 +57,19 @@ public class RollButton extends JButton {
         return (int) this.dieSelector.getSelectedItem();
     }
 
+    public int getAttribute() {
+
+        if (this.attributeSelector == null || this.attributeSelector.getSelectedItem() == null) {
+            return DEFAULT_ATTRIBUTE;
+        }
+
+        return (int) mainWindow.getStatisticWindow().getAttributePanel().getData().get(this.attributeSelector.getSelectedIndex()).right.getValue();
+    }
+
     public int getSkill() {
 
         if (this.skillSelector == null || this.skillSelector.getSelectedItem() == null) {
-            return 1;
+            return DEFAULT_SKILL;
         }
 
         return (int) mainWindow.getStatisticWindow().getSkillPanel().getData().get(this.skillSelector.getSelectedIndex()).right.getValue();
@@ -97,8 +113,10 @@ public class RollButton extends JButton {
                     } else if (tick == ticks) {
 
                         int skill = rollButton.getSkill();
+                        int attribute = rollButton.getAttribute();
 
                         result += skill;
+                        result += attribute;
 
                         int target = rollButton.getDifficulty();
 

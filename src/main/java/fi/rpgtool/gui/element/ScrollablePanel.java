@@ -18,7 +18,11 @@ public class ScrollablePanel extends JPanel {
         this.items.setLayout(new BoxLayout(items, BoxLayout.Y_AXIS));
 
         this.setLayout(new BorderLayout());
-        this.add(new JScrollPane(items, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER), BorderLayout.CENTER);
+
+        JScrollPane pane = new JScrollPane(items, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        pane.getVerticalScrollBar().setUnitIncrement(16);
+
+        this.add(pane, BorderLayout.CENTER);
     }
 
     public void addItems(List<String> items) {
@@ -57,9 +61,10 @@ public class ScrollablePanel extends JPanel {
     }
 
     private void updateLastAndRevalidate() {
+
         if (cells.size() > 0) {
-            cells.get(Math.max(0, cells.size() - 2)).setLast(false);
-            cells.get(Math.max(0, cells.size() - 1)).setLast(true);
+            cells.get(Math.max(0, cells.size() - 2)).update(false);
+            cells.get(Math.max(0, cells.size() - 1)).update(true);
         }
 
         items.revalidate();
@@ -100,7 +105,7 @@ public class ScrollablePanel extends JPanel {
             this.add(textField, BorderLayout.WEST);
         }
 
-        public void setLast(boolean last) {
+        public void update(boolean last) {
 
             if (last) {
 

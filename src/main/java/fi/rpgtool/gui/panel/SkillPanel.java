@@ -26,7 +26,7 @@ public class SkillPanel extends JPanel {
 
         int i = 0;
 
-        for (Map.Entry<String, Integer> abilities : mainWindow.getCharacter().getAbilities().entrySet()) {
+        for (Map.Entry<String, Integer> abilities : mainWindow.getCharacter().getSkills().entrySet()) {
 
             // Rajoita taidot viiteen taitoon
             if (i > 5) {

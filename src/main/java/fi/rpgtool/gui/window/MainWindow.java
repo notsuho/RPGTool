@@ -152,9 +152,9 @@ public class MainWindow extends JFrame {
             character.setAttribute(attribute.left, (int) attribute.right.getValue());
         }
 
-        character.getAbilities().clear();
+        character.getSkills().clear();
         for (Pair<JTextField, JSpinner> ability : stats.getSkillPanel().getData()) {
-            character.setAbility(ability.left.getText(), (int) ability.right.getValue());
+            character.setSkill(ability.left.getText(), (int) ability.right.getValue());
         }
 
         character.setNotes(getInventoryWindow().getNotes().getText());
