@@ -3,9 +3,12 @@ package fi.rpgtool.gui.element;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ScrollablePanel extends JPanel {
 
+    private List<CellPanel> cells = new ArrayList<>();
     private final JPanel items;
 
     public ScrollablePanel() {
@@ -18,22 +21,43 @@ public class ScrollablePanel extends JPanel {
     }
 
     public void addItem(int i) {
-        items.add(new CellPanel(this, i));
+        cells.add(new CellPanel(this, i));
+        rebuildList();
+    }
+
+    public void removeItem(int i) {
+        cells.remove(i);
+        rebuildList();
+    }
+
+    private void rebuildList() {
+
+        items.removeAll();
+
+        int index = 0;
+
+        for (CellPanel panel : cells) {
+            panel.setIndex(index);
+            items.add(panel);
+            index++;
+        }
+
         items.revalidate();
         items.repaint();
     }
 
-    public void removeItem(int i) {
-        items.remove(i);
-        items.revalidate();
-        items.repaint();
+    public List<CellPanel> getCells() {
+        return cells;
     }
 
     private static class CellPanel extends JPanel {
 
         private static final int GAP = 4;
 
-        private final int index;
+        private final JTextField textField;
+        private final JButton button;
+        private int index;
+        private boolean isLast = false;
 
         public CellPanel(ScrollablePanel parent, int index) {
 
@@ -43,47 +67,43 @@ public class ScrollablePanel extends JPanel {
 
             Border emptyBorder = BorderFactory.createEmptyBorder(GAP, GAP, GAP, GAP);
             Border lineBorder = BorderFactory.createLineBorder(Color.black);
-            setBorder(BorderFactory.createCompoundBorder(lineBorder, emptyBorder));
 
-            //add(new JTextField(name, 100), makeConstraints(0, 0, GridBagConstraints.WEST));
+            this.setBorder(BorderFactory.createCompoundBorder(lineBorder, emptyBorder));
 
-            JTextField textField = new JTextField("Name " + this.index);
-
+            this.textField = new JTextField("Name " + this.index);
             textField.setPreferredSize(new Dimension(500, 30));
 
-            add(textField, BorderLayout.WEST);
-            //add(new JLabel(""), makeConstraints(1, 0, GridBagConstraints.EAST));
+            this.button = new JButton();
 
-            JButton xButton;
-
-            if (index == parent.items.getComponentCount() - 1) {
-                xButton = new JButton("+");
+            if (isLast) {
+                button.setText("+");
             } else {
-                xButton = new JButton("X");
+                button.setText("X");
+                button.addActionListener(action -> parent.removeItem(getIndex()));
             }
 
-            xButton.addActionListener(action -> parent.removeItem(index));
-
-            //add(xButton, makeConstraints(1, 0, GridBagConstraints.EAST));
-            add(xButton, BorderLayout.EAST);
+            this.add(button, BorderLayout.EAST);
+            this.add(textField, BorderLayout.WEST);
         }
 
         public int getIndex() {
             return index;
         }
 
-        private GridBagConstraints makeConstraints(int x, int y, int anchor) {
+        public void setIndex(int index) {
+            this.index = index;
+        }
 
-            GridBagConstraints gbc = new GridBagConstraints();
+        public void setLast(boolean last) {
+            this.isLast = last;
+        }
 
-            gbc.gridx = x;
-            gbc.gridy = y;
-            gbc.gridwidth = 1;
-            gbc.weightx = 1.0f;
-            gbc.weighty = 1.0f;
-            gbc.anchor = anchor;
+        public JTextField getTextField() {
+            return textField;
+        }
 
-            return gbc;
+        public JButton getButton() {
+            return button;
         }
 
     }
