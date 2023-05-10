@@ -23,10 +23,14 @@ public class InventoryWindow extends JPanel {
 
         this.notes = new JTextArea(mainWindow.getCharacter().getNotes());
         this.notes.setBorder(new TitledBorder("Muistiinpanot"));
-        this.notes.setPreferredSize(new Dimension(400, 300));
+        // this.notes.setPreferredSize(new Dimension(400, 300));
+        this.notes.setLineWrap(true);
+
+        JScrollPane notePane = new JScrollPane(notes, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        notePane.setPreferredSize(new Dimension(400, 300));
 
         this.add(items, BorderLayout.PAGE_START);
-        this.add(notes, BorderLayout.PAGE_END);
+        this.add(notePane, BorderLayout.PAGE_END);
     }
 
     public JTextArea getNotes() {
