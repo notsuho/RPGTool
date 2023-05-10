@@ -33,9 +33,8 @@ public class ScrollablePanel extends JPanel {
 
             cells.add(cellPanel);
             this.items.add(cellPanel);
+            updateLastAndRevalidate();
         }
-
-        updateLastAndRevalidate();
     }
 
     public void addItem(String item) {
