@@ -8,7 +8,7 @@ import java.util.List;
 
 public class ScrollablePanel extends JPanel {
 
-    private List<CellPanel> cells = new ArrayList<>();
+    private final List<CellPanel> cells = new ArrayList<>();
     private final JPanel items;
 
     public ScrollablePanel() {
