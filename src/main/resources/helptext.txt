@@ -1,8 +1,8 @@
-RPGTool on työkalu hahmon luomiseen roolipeliä pelatessa. Se on jaettu kahteen tabiin joiden välillä voit vaihdella, "statistics" ja "inventory."
+RPGTool on työkalu hahmon luomiseen roolipeliä pelatessa. Se on jaettu kahteen tabiin joiden välillä voit vaihdella, "Hahmotiedot" ja "Tavaralista."
 
-Inventory sisältää paikan lisätä ja poistaa hahmolla olevia tavaroita, sekä tilaa muistiinpanoille. Statistics sisältää hahmon tiedot.
+Tavaralista sisältää paikan lisätä ja poistaa hahmolla olevia tavaroita, sekä tilaa muistiinpanoille. 
 
-Ylimpänä ovat hahmon nimi, ja terveys- ja panssaripisteet. On myös kohta hahmon kuvalle.
+Hahmotiedot sisältää hahmon tiedot. Ylimpänä ovat hahmon nimi, ja terveys- ja panssaripisteet. On myös kohta hahmon kuvalle.
 
 Keskellä ovat hahmon ominaisuudet ja taidot. Ominaisuudet kuvastavat hahmon fyysisiä ja henkisiä kykyjä, arvovälillä 10-20. Kun hahmosi tekee jotain roolipelissä, joka vaatii nopan heittoa, valitse heittoon sopiva ominaisuus ja lisää sen bonus tulokseen.
 
