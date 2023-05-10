@@ -101,10 +101,10 @@ public class MainWindow extends JFrame {
                     }
 
                     save(chosenFile);
-                    JOptionPane.showMessageDialog(this, "Tallentaminen onnistui");
+                    JOptionPane.showMessageDialog(this, "Tallentaminen onnistui", "Ilmoitus", JOptionPane.INFORMATION_MESSAGE);
 
                 } catch (IOException ex) {
-                    JOptionPane.showMessageDialog(this, "Tallentaminen epäonnistui");
+                    JOptionPane.showMessageDialog(this, "Tallentaminen epäonnistui", "Virhe", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
@@ -127,7 +127,7 @@ public class MainWindow extends JFrame {
             try {
                 HelpDialog hd = new HelpDialog();
             } catch (IOException e) {
-                JOptionPane.showMessageDialog(this, "Käyttöohjeen avaamisessa tapahtui virhe.");
+                JOptionPane.showMessageDialog(this, "Käyttöohjeen avaamisessa tapahtui virhe.", "Virhe", JOptionPane.ERROR_MESSAGE);
                 e.printStackTrace();
             }
         });

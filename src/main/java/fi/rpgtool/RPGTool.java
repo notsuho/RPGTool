@@ -15,7 +15,7 @@ public class RPGTool {
 
     public static MainWindow createWindow() {
 
-        MainWindow window = new MainWindow("NewUniqueNameForRPGTool2.json");
+        MainWindow window = new MainWindow("default.json");
 
         StatisticWindow statisticWindow = new StatisticWindow(window);
         InventoryWindow inventoryWindow = new InventoryWindow(window);
