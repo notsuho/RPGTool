@@ -22,6 +22,7 @@ public class HelpDialog extends JDialog {
         File file = new File("src/main/resources/helptext.txt");
         Reader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8));
         helpText.read(reader, helpText);
+        helpText.setEditable(false);
 
         reader.close();
 
