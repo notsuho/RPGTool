@@ -22,11 +22,11 @@ public class RPGTool {
 
         JTabbedPane pane = new JTabbedPane();
 
-        pane.addTab("Statistics", statisticWindow);
-        pane.addTab("Inventory", inventoryWindow);
+        pane.addTab("Hahmotiedot", statisticWindow);
+        pane.addTab("Tavaraluettelo", inventoryWindow);
 
-        pane.setTabComponentAt(0, new JLabel("Statistics"));
-        pane.setTabComponentAt(1, new JLabel("Inventory"));
+        pane.setTabComponentAt(0, new JLabel("Hahmotiedot"));
+        pane.setTabComponentAt(1, new JLabel("Tavaraluettelo"));
 
         // Datan hakemiseksi
         window.setStatisticWindow(statisticWindow);

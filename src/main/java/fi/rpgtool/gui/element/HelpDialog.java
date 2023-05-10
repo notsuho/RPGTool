@@ -14,7 +14,7 @@ public class HelpDialog extends JDialog {
 
         this.setLayout(new BorderLayout());
         this.setTitle("RPGTOOL KÄYTTÖOHJE");
-        this.setSize(500, 500);
+        this.setSize(600, 600);
         this.setModal(true);
         this.setLocationRelativeTo(null);
 

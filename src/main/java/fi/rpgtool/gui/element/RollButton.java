@@ -116,6 +116,7 @@ public class RollButton extends JButton {
                         int skill = rollButton.getSkill();
                         int attributeBonus = (rollButton.getAttribute()-10);
 
+                        int noppa = result;
                         result += skill;
                         result += attributeBonus;
 
@@ -123,10 +124,12 @@ public class RollButton extends JButton {
 
                         if (result >= target) {
                             rollButton.setText("<html><center>HEITÄ NOPPAA<br/>Onnistuit! Tulos: " + result 
+                            + "<br/>Noppa: " + noppa
                             + "<br/>Ominaisuus: +" + attributeBonus 
                             + "<br/>Taito: +" + skill + "</center></html>");
                         } else {
                             rollButton.setText("<html><center>HEITÄ NOPPAA<br/>Epäonnistuit! Tulos: " + result
+                            + "<br/>Noppa: " + noppa
                             + "<br/>Ominaisuus: +" + attributeBonus 
                             + "<br/>Taito: +" + skill + "</center></html>");
                         }
