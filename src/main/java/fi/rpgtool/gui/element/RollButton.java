@@ -123,12 +123,14 @@ public class RollButton extends JButton {
                         int target = rollButton.getDifficulty();
 
                         if (result >= target) {
-                            rollButton.setText("<html><center>HEITÄ NOPPAA<br/>Onnistuit! Tulos: " + result 
+                            rollButton.setText("<html><center>HEITÄ NOPPAA<br/>Onnistuit!"
+                            + "<br/>Tulos: " + result 
                             + "<br/>Noppa: " + noppa
                             + "<br/>Ominaisuus: +" + attributeBonus 
                             + "<br/>Taito: +" + skill + "</center></html>");
                         } else {
-                            rollButton.setText("<html><center>HEITÄ NOPPAA<br/>Epäonnistuit! Tulos: " + result
+                            rollButton.setText("<html><center>HEITÄ NOPPAA<br/>Epäonnistuit!"
+                            + "<br/>Tulos: " + result
                             + "<br/>Noppa: " + noppa
                             + "<br/>Ominaisuus: +" + attributeBonus 
                             + "<br/>Taito: +" + skill + "</center></html>");
