@@ -14,7 +14,6 @@ public class InventoryWindow extends JPanel {
     public InventoryWindow(MainWindow mainWindow) {
         this.setLayout(new BorderLayout());
 
-        // tänne esinelista ja muistiinpanokenttä
         this.items = new ScrollablePanel();
         this.items.setBorder(new TitledBorder("Tavaraluettelo"));
         this.items.setPreferredSize(new Dimension(400, 400));

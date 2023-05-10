@@ -112,9 +112,14 @@ public class MainWindow extends JFrame {
         MenuItem item = new MenuItem(label);
 
         item.addActionListener(action -> {
-            JFileChooser fileChooser = new JFileChooser(new File(System.getProperty("user.home")));
 
-            int result = fileChooser.showSaveDialog(this);
+            JFileChooser fileChooser = new JFileChooser();
+
+            File saveFile = new File(System.getProperty("user.home"), character.getName().replaceAll("\\s+", "_") + ".json");
+
+            fileChooser.setSelectedFile(saveFile);
+
+            int result = fileChooser.showSaveDialog(null);
 
             if (result == JFileChooser.APPROVE_OPTION) {
                 try {
@@ -126,6 +131,7 @@ public class MainWindow extends JFrame {
                     }
 
                     save(chosenFile);
+
                     JOptionPane.showMessageDialog(this, SAVING_SUCCESS, NOTIFICATION_TITLE, JOptionPane.INFORMATION_MESSAGE);
 
                 } catch (IOException ex) {
@@ -206,7 +212,7 @@ public class MainWindow extends JFrame {
         }
 
         if (file.isDirectory()) {
-            file = new File(file, character.getName().strip() + ".json");
+            file = new File(file, character.getName().replaceAll("\\s+", "_") + ".json");
         }
 
         Files.writeString(Path.of(file.getPath()), GSON.toJson(character, Character.class), StandardCharsets.UTF_8);
