@@ -69,25 +69,49 @@ public class MainWindow extends JFrame {
     private void makeMenuBar() {
 
         MenuBar menu = new MenuBar();
+
         Menu file = new Menu("FILE");
         Menu help = new Menu("HELP");
+
         menu.add(file);
         menu.add(help);
 
-        MenuItem m1 = new MenuItem("SAVE");
+        file.add(makeSaveButton("SAVE"));
+        file.add(makeSaveAsButton("SAVE AS"));
+        file.add(makeImportButton("IMPORT"));
 
-        m1.addActionListener(action -> {
+        help.add(makeHelpMenuItem("KÄYTTÖOHJE"));
+
+        this.setMenuBar(menu);
+    }
+
+    private static final String SAVING_SUCCESS = "Tallentaminen onnistui.";
+    private static final String SAVING_FAILED = "Tallentaminen epäonnistui.";
+    private static final String HELP_ERROR = "Käyttöohjeen näyttämisessä tapahtui virhe.";
+    private static final String NOTIFICATION_TITLE = "Ilmoitus";
+    private static final String ERROR_TITLE = "Virhe";
+
+    private MenuItem makeSaveButton(String label) {
+
+        MenuItem item = new MenuItem(label);
+
+        item.addActionListener(action -> {
             try {
                 save(null);
-                JOptionPane.showMessageDialog(this, "Tallentaminen onnistui", "Ilmoitus", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, SAVING_SUCCESS, NOTIFICATION_TITLE, JOptionPane.INFORMATION_MESSAGE);
             } catch (IOException ex) {
-                JOptionPane.showMessageDialog(this, "Tallentaminen epäonnistui", "Virhe", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, SAVING_FAILED, ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
             }
         });
 
-        MenuItem m2 = new MenuItem("SAVE AS");
+        return item;
+    }
 
-        m2.addActionListener(action -> {
+    private MenuItem makeSaveAsButton(String label) {
+
+        MenuItem item = new MenuItem(label);
+
+        item.addActionListener(action -> {
             JFileChooser fileChooser = new JFileChooser(new File(System.getProperty("user.home")));
 
             int result = fileChooser.showSaveDialog(this);
@@ -102,17 +126,22 @@ public class MainWindow extends JFrame {
                     }
 
                     save(chosenFile);
-                    JOptionPane.showMessageDialog(this, "Tallentaminen onnistui", "Ilmoitus", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(this, SAVING_SUCCESS, NOTIFICATION_TITLE, JOptionPane.INFORMATION_MESSAGE);
 
                 } catch (IOException ex) {
-                    JOptionPane.showMessageDialog(this, "Tallentaminen epäonnistui", "Virhe", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, SAVING_FAILED, ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
 
-        MenuItem m3 = new MenuItem("IMPORT");
+        return item;
+    }
 
-        m3.addActionListener(action -> {
+    private MenuItem makeImportButton(String label) {
+
+        MenuItem item = new MenuItem(label);
+
+        item.addActionListener(action -> {
             JFileChooser fileChooser = new JFileChooser(new File(System.getProperty("user.home")));
 
             int result = fileChooser.showOpenDialog(this);
@@ -123,22 +152,22 @@ public class MainWindow extends JFrame {
             }
         });
 
-        MenuItem m4 = new MenuItem("KÄYTTÖOHJE");
-        m4.addActionListener(action -> {
+        return item;
+    }
+
+    private MenuItem makeHelpMenuItem(String label) {
+
+        MenuItem item = new MenuItem("KÄYTTÖOHJE");
+
+        item.addActionListener(action -> {
             try {
-                HelpDialog hd = new HelpDialog();
-            } catch (IOException e) {
-                JOptionPane.showMessageDialog(this, "Käyttöohjeen avaamisessa tapahtui virhe.", "Virhe", JOptionPane.ERROR_MESSAGE);
-                e.printStackTrace();
+                new HelpDialog();
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(this, HELP_ERROR, ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
             }
         });
 
-        file.add(m1);
-        file.add(m2);
-        file.add(m3);
-        help.add(m4);
-
-        this.setMenuBar(menu);
+        return item;
     }
 
     public void save(File file) throws IOException {
@@ -157,10 +186,12 @@ public class MainWindow extends JFrame {
             character.setSkill(ability.left.getText(), (int) ability.right.getValue());
         }
 
-        character.setNotes(getInventoryWindow().getNotes().getText());
+        InventoryWindow inventoryWindow = getInventoryWindow();
+
+        character.setNotes(inventoryWindow.getNotes().getText());
 
         character.getInventory().clear();
-        for (ScrollablePanel.CellPanel panel : getInventoryWindow().getItems().getCells()) {
+        for (ScrollablePanel.CellPanel panel : inventoryWindow.getItems().getCells()) {
 
             String text = panel.getTextField().getText();
 
