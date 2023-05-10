@@ -36,7 +36,7 @@ public class DiceRollPanel extends JPanel {
         this.dieSelector.setBorder(new TitledBorder("Valitse nopan koko:"));
 
         RollButton rollButton = new RollButton(mainWindow);
-        rollButton.setPreferredSize(new Dimension(50, 50));
+        rollButton.setPreferredSize(new Dimension(150, 150));
         rollButton.setMinimumSize(rollButton.getPreferredSize());
 
         JPanel leftDiceRollPanel = new JPanel();
@@ -51,8 +51,12 @@ public class DiceRollPanel extends JPanel {
         rightDiceRollPanel.add(Box.createVerticalGlue());
         rightDiceRollPanel.add(this.dieSelector);
 
+        JPanel rollButtonPanel = new JPanel();
+        rollButtonPanel.setLayout(new GridBagLayout());
+
         this.add(leftDiceRollPanel);
-        this.add(rollButton);
+        rollButtonPanel.add(rollButton);
+        this.add(rollButtonPanel);
         this.add(rightDiceRollPanel);
 
         // Nämä asetetaan tiedon käsittelyn helpottamiseksi.
