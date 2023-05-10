@@ -157,7 +157,7 @@ public class MainWindow extends JFrame {
 
     private MenuItem makeHelpMenuItem(String label) {
 
-        MenuItem item = new MenuItem("KÄYTTÖOHJE");
+        MenuItem item = new MenuItem(label);
 
         item.addActionListener(action -> {
             try {
