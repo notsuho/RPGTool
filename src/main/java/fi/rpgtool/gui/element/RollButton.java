@@ -113,17 +113,21 @@ public class RollButton extends JButton {
                     } else if (tick == ticks) {
 
                         int skill = rollButton.getSkill();
-                        int attribute = rollButton.getAttribute();
+                        int attributeBonus = (rollButton.getAttribute()-10);
 
                         result += skill;
-                        result += attribute;
+                        result += attributeBonus;
 
                         int target = rollButton.getDifficulty();
 
                         if (result >= target) {
-                            rollButton.setText("<html><center>HEITÄ NOPPAA<br/>Onnistuit! Tulos: " + result + "</center></html>");
+                            rollButton.setText("<html><center>HEITÄ NOPPAA<br/>Onnistuit! Tulos: " + result 
+                            + "<br/>Ominaisuus: +" + attributeBonus 
+                            + "<br/>Taito: +" + skill + "</center></html>");
                         } else {
-                            rollButton.setText("<html><center>HEITÄ NOPPAA<br/>Epäonnistuit! Tulos: " + result + "</center></html>");
+                            rollButton.setText("<html><center>HEITÄ NOPPAA<br/>Epäonnistuit! Tulos: " + result
+                            + "<br/>Ominaisuus: +" + attributeBonus 
+                            + "<br/>Taito: +" + skill + "</center></html>");
                         }
 
                         timer.stop();
