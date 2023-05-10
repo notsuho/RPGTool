@@ -60,10 +60,10 @@ public class ScrollablePanel extends JPanel {
         if (cells.size() > 0) {
             cells.get(Math.max(0, cells.size() - 2)).setLast(false);
             cells.get(Math.max(0, cells.size() - 1)).setLast(true);
-
-            items.revalidate();
-            items.repaint();
         }
+
+        items.revalidate();
+        items.repaint();
     }
 
     public List<CellPanel> getCells() {
