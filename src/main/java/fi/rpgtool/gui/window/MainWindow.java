@@ -78,9 +78,9 @@ public class MainWindow extends JFrame {
         m1.addActionListener(action -> {
             try {
                 save(null);
-                JOptionPane.showMessageDialog(this, "Tallentaminen onnistui");
+                JOptionPane.showMessageDialog(this, "Tallentaminen onnistui", "Ilmoitus", JOptionPane.INFORMATION_MESSAGE);
             } catch (IOException ex) {
-                JOptionPane.showMessageDialog(this, "Tallentaminen epäonnistui");
+                JOptionPane.showMessageDialog(this, "Tallentaminen epäonnistui", "Virhe", JOptionPane.ERROR_MESSAGE);
             }
         });
 
