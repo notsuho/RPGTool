@@ -50,13 +50,13 @@ public class RollButton extends JButton {
         return (int) this.dieSelector.getSelectedItem();
     }
 
-    public String getSkill() {
+    public int getSkill() {
 
         if (this.skillSelector == null || this.skillSelector.getSelectedItem() == null) {
-            return null;
+            return 1;
         }
 
-        return (String) this.skillSelector.getSelectedItem();
+        return (int) mainWindow.getStatisticWindow().getSkillPanel().getData().get(this.skillSelector.getSelectedIndex()).right.getValue();
     }
 
     public int getDifficulty() {
@@ -96,7 +96,7 @@ public class RollButton extends JButton {
                         rollButton.setText("Silmäluku: " + result);
                     } else if (tick == ticks) {
 
-                        int skill = rollButton.mainWindow.getCharacter().getAbility(rollButton.getSkill());
+                        int skill = rollButton.getSkill();
 
                         result += skill;
 

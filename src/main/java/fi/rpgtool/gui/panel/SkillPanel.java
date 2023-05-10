@@ -72,10 +72,12 @@ public class SkillPanel extends JPanel {
 
             @Override
             public void keyPressed(KeyEvent e) {
+                mainWindow.getStatisticWindow().setSkillDropdownValues();
             }
 
             @Override
             public void keyReleased(KeyEvent e) {
+                mainWindow.getStatisticWindow().setSkillDropdownValues();
             }
         }
 

@@ -66,11 +66,20 @@ public class StatisticWindow extends JPanel {
 
         JComboBox<String> skills = diceRollPanel.getSkillSelector();
 
+        Object selectedItem = skills.getSelectedItem();
+
         skills.removeAllItems();
 
         for (Pair<JTextField, JSpinner> skill : skillPanel.getData()) {
-            if (!skill.left.getText().isBlank()) {
-                skills.addItem(skill.left.getText());
+
+            String text = skill.left.getText();
+
+            if (!text.isBlank()) {
+                skills.addItem(text);
+            }
+
+            if (text.equals(selectedItem)) {
+                skills.setSelectedItem(text);
             }
         }
 
