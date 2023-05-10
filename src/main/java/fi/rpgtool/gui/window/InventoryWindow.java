@@ -19,9 +19,8 @@ public class InventoryWindow extends JPanel {
         this.items.setBorder(new TitledBorder("Tavaraluettelo"));
         this.items.setPreferredSize(new Dimension(400, 400));
 
-        for (int i = 0; i < 20; i++) {
-            this.items.addItem(i);
-        }
+        this.items.addItems(mainWindow.getCharacter().getInventory());
+        this.items.addItem(null);
 
         this.notes = new JTextArea(mainWindow.getCharacter().getNotes());
         this.notes.setBorder(new TitledBorder("Muistiinpanot"));

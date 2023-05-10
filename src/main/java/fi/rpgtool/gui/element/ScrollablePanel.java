@@ -3,6 +3,7 @@ package fi.rpgtool.gui.element;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,35 +21,49 @@ public class ScrollablePanel extends JPanel {
         this.add(new JScrollPane(items, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER), BorderLayout.CENTER);
     }
 
-    public void addItem(int i) {
-        cells.add(new CellPanel(this, i));
-        rebuildList();
+    public void addItems(List<String> items) {
+
+        for (String item : items) {
+
+            CellPanel cellPanel = new CellPanel(item, this);
+
+            cells.add(cellPanel);
+            this.items.add(cellPanel);
+        }
+
+        updateLastAndRevalidate();
+    }
+
+    public void addItem(String item) {
+
+        CellPanel cellPanel = new CellPanel(item, this);
+
+        cells.add(cellPanel);
+        items.add(cellPanel);
+
+        updateLastAndRevalidate();
     }
 
     public void removeItem(int i) {
         cells.remove(i);
-        rebuildList();
+        items.remove(i);
+        updateLastAndRevalidate();
     }
 
-    private void rebuildList() {
+    public void removeItem(CellPanel panel) {
+        cells.remove(panel);
+        items.remove(panel);
+        updateLastAndRevalidate();
+    }
 
-        items.removeAll();
+    private void updateLastAndRevalidate() {
+        if (cells.size() > 0) {
+            cells.get(Math.max(0, cells.size() - 2)).setLast(false);
+            cells.get(Math.max(0, cells.size() - 1)).setLast(true);
 
-        int index = 0;
-
-        for (CellPanel panel : cells) {
-
-            panel.setIndex(index);
-
-            index++;
-
-            panel.setLast(index == cells.size());
-
-            items.add(panel);
+            items.revalidate();
+            items.repaint();
         }
-
-        items.revalidate();
-        items.repaint();
     }
 
     public List<CellPanel> getCells() {
@@ -62,11 +77,9 @@ public class ScrollablePanel extends JPanel {
         private final ScrollablePanel parent;
         private final JTextField textField;
         private final JButton button;
-        private int index;
 
-        public CellPanel(ScrollablePanel parent, int index) {
+        public CellPanel(String content, ScrollablePanel parent) {
 
-            this.index = index;
             this.parent = parent;
 
             setLayout(new BorderLayout());
@@ -76,7 +89,7 @@ public class ScrollablePanel extends JPanel {
 
             this.setBorder(BorderFactory.createCompoundBorder(lineBorder, emptyBorder));
 
-            this.textField = new JTextField("Name " + this.index);
+            this.textField = new JTextField(content);
             textField.setPreferredSize(new Dimension(500, 30));
 
             this.button = new JButton();
@@ -85,24 +98,25 @@ public class ScrollablePanel extends JPanel {
             this.add(textField, BorderLayout.WEST);
         }
 
-        public int getIndex() {
-            return index;
-        }
-
-        public void setIndex(int index) {
-            this.index = index;
-        }
-
         public void setLast(boolean last) {
 
             if (last) {
-                button.removeAll();
+
+                for (ActionListener listener : button.getActionListeners()) {
+                    button.removeActionListener(listener);
+                }
+
                 button.setText("+");
-                button.addActionListener(action -> parent.addItem(getIndex() + 1));
+                button.addActionListener(action -> parent.addItem(null));
+
             } else {
-                button.removeAll();
+
+                for (ActionListener listener : button.getActionListeners()) {
+                    button.removeActionListener(listener);
+                }
+
                 button.setText("X");
-                button.addActionListener(action -> parent.removeItem(getIndex()));
+                button.addActionListener(action -> parent.removeItem(this));
             }
 
         }
