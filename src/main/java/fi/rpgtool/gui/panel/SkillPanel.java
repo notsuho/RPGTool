@@ -12,6 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Taitopaneeli. Toimii hyvin samalla tavalla attribuuttipaneelin kanssa, eli valitun taidon arvo lisätään nopanheiton tulokseen.
+ */
 public class SkillPanel extends JPanel {
 
     private final List<Pair<JTextField, JSpinner>> data = new ArrayList<>();
@@ -28,7 +31,7 @@ public class SkillPanel extends JPanel {
 
         for (Map.Entry<String, Integer> abilities : mainWindow.getCharacter().getSkills().entrySet()) {
 
-            // Rajoita taidot viiteen taitoon
+            // Rajoitetaan taidot viiteen taitoon
             if (i > 5) {
                 break;
             }
@@ -48,6 +51,12 @@ public class SkillPanel extends JPanel {
         return data;
     }
 
+    /**
+     * Luo parin tekstikentästä ja spinneristä
+     * @param skillKey taidon "avain", eli tekstikentässä annettava nimi
+     * @param skillValue taidon arvo, eli spinnerissä valittava arvo
+     * @return pari, joka sisältää tekstikentän ja spinnerin annetuilla arvoilla
+     */
     private Pair<JTextField, JSpinner> makeSkill(String skillKey, int skillValue) {
 
         JTextField textField = new JTextField(skillKey);
@@ -63,6 +72,10 @@ public class SkillPanel extends JPanel {
         return new Pair<>(textField, spinner);
     }
 
+    /**
+     * Yksityinen luokka joka käsittelee yllä olevan metodin tekstikentän tapahtumia.
+     * Tämä on varmaan ohjelman huonoiten toteutettu osa, mutta se toimii silti.
+     */
     private record KeyPressListener(MainWindow mainWindow) implements KeyListener {
 
         @Override
