@@ -231,6 +231,10 @@ public class MainWindow extends JFrame {
             this.file = new File("hahmot");
         }
 
+        if (!this.file.exists()) {
+            this.file.mkdirs();
+        }
+
         if (this.file.isDirectory()) {
 
             String fileName = character.getName().replaceAll("\\s+", "_");
