@@ -3,6 +3,7 @@ package fi.rpgtool.gui.window;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
+import fi.rpgtool.RPGTool;
 import fi.rpgtool.data.Character;
 import fi.rpgtool.data.Pair;
 import fi.rpgtool.gui.element.HelpDialog;
@@ -10,6 +11,8 @@ import fi.rpgtool.gui.element.ScrollablePanel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
@@ -17,26 +20,29 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+/**
+ * Ohjelman pääikkuna, joka pitää sisällään kaiken muun.
+ */
 public class MainWindow extends JFrame {
 
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
     private Character character;
-    private File file;
+    private boolean hasChanged = false;
+    private final File file;
 
     private StatisticWindow statisticWindow;
     private InventoryWindow inventoryWindow;
 
-    /**
-     * 
-     */
-    public MainWindow(String filePath) {
 
-        this.file = new File(filePath);
+    public MainWindow(File file) {
+
+        this.file = file;
         load();
 
         this.setTitle("RPGTool");
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        this.addWindowListener(new CloseAdapter(this));
         this.setPreferredSize(new Dimension(600, 800));
         this.setLocationRelativeTo(null);
         this.setLayout(new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS));
@@ -64,6 +70,14 @@ public class MainWindow extends JFrame {
 
     public StatisticWindow getStatisticWindow() {
         return statisticWindow;
+    }
+
+    public void setUnsaved(boolean saved) {
+        this.hasChanged = saved;
+    }
+
+    public boolean needsSaving() {
+        return hasChanged;
     }
 
     private void makeMenuBar() {
@@ -111,36 +125,39 @@ public class MainWindow extends JFrame {
 
         MenuItem item = new MenuItem(label);
 
-        item.addActionListener(action -> {
-
-            JFileChooser fileChooser = new JFileChooser();
-
-            File saveFile = new File(System.getProperty("user.home"), character.getName().replaceAll("\\s+", "_") + ".json");
-
-            fileChooser.setSelectedFile(saveFile);
-
-            int result = fileChooser.showSaveDialog(null);
-
-            if (result == JFileChooser.APPROVE_OPTION) {
-                try {
-
-                    File chosenFile = fileChooser.getSelectedFile();
-
-                    if (!chosenFile.exists()) {
-                        chosenFile.mkdirs();
-                    }
-
-                    save(chosenFile);
-
-                    JOptionPane.showMessageDialog(this, SAVING_SUCCESS, NOTIFICATION_TITLE, JOptionPane.INFORMATION_MESSAGE);
-
-                } catch (IOException ex) {
-                    JOptionPane.showMessageDialog(this, SAVING_FAILED, ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
-                }
-            }
-        });
+        item.addActionListener(action -> openSaveWindow());
 
         return item;
+    }
+
+    private void openSaveWindow() {
+
+        JFileChooser fileChooser = new JFileChooser();
+
+        File saveFile = new File(System.getProperty("user.home"), character.getName().replaceAll("\\s+", "_") + ".json");
+
+        fileChooser.setSelectedFile(saveFile);
+
+        int result = fileChooser.showSaveDialog(null);
+
+        if (result == JFileChooser.APPROVE_OPTION) {
+            try {
+
+                File chosenFile = fileChooser.getSelectedFile();
+
+                if (!chosenFile.exists()) {
+                    chosenFile.mkdirs();
+                }
+
+                save(chosenFile);
+
+                JOptionPane.showMessageDialog(this, SAVING_SUCCESS, NOTIFICATION_TITLE, JOptionPane.INFORMATION_MESSAGE);
+
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(this, SAVING_FAILED, ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
     }
 
     private MenuItem makeImportButton(String label) {
@@ -153,8 +170,7 @@ public class MainWindow extends JFrame {
             int result = fileChooser.showOpenDialog(this);
 
             if (result == JFileChooser.APPROVE_OPTION) {
-                this.file = fileChooser.getSelectedFile();
-                load();
+                RPGTool.createWindow(fileChooser.getSelectedFile());
             }
         });
 
@@ -228,6 +244,42 @@ public class MainWindow extends JFrame {
             reader.close();
         } catch (IOException ex) {
             this.character = new Character();
+        }
+    }
+
+    private static class CloseAdapter extends WindowAdapter {
+
+        private static final String UNSAVED_CHANGES = "Sinulla on tallentamattomia muutoksia, haluatko tallentaa ne?";
+        private static final Object[] YES_NO_CANCEL_OPTIONS = {"Kyllä", "Ei", "Mene takaisin"};
+
+        private final MainWindow window;
+
+        public CloseAdapter(MainWindow window) {
+            this.window = window;
+        }
+
+        @Override
+        public void windowClosing(WindowEvent e) {
+
+            if (!window.needsSaving()) {
+                window.dispose();
+            } else {
+
+                int option = JOptionPane.showOptionDialog(null, UNSAVED_CHANGES, NOTIFICATION_TITLE,
+                        JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, YES_NO_CANCEL_OPTIONS, -1);
+
+                switch (option) {
+                    case JOptionPane.YES_OPTION -> {
+                        window.openSaveWindow();
+                        window.setUnsaved(false);
+                    }
+                    case JOptionPane.NO_OPTION -> {
+                        window.dispose();
+                        window.setUnsaved(false);
+                    }
+                }
+
+            }
         }
     }
 }

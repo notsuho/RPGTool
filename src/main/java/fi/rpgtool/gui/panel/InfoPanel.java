@@ -5,6 +5,8 @@ import fi.rpgtool.gui.window.MainWindow;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 /**
  * Infopaneeli joka sisältää valitun hahmon perustiedot kuten nimen, terveyspisteet ja panssaripisteet.
@@ -23,6 +25,22 @@ public class InfoPanel extends JPanel {
         this.nameField = new JTextField(mainWindow.getCharacter().getName());
         this.nameField.setBorder(new TitledBorder("Hahmon nimi"));
         this.nameField.setPreferredSize(new Dimension(200, 40));
+        this.nameField.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                mainWindow.setUnsaved(true);
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                mainWindow.setUnsaved(true);
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                mainWindow.setUnsaved(true);
+            }
+        });
 
         // laitetaan spinnerin tekstikentän editointi pois päältä,
         // niin käyttäjä voi muokata sitä vain nuolinappien avulla
@@ -31,13 +49,19 @@ public class InfoPanel extends JPanel {
         this.healthSpinner.setBorder(new TitledBorder("Terveyspisteet"));
         this.healthSpinner.setPreferredSize(new Dimension(150, 50));
         ((JSpinner.DefaultEditor) healthSpinner.getEditor()).getTextField().setEditable(false);
-        this.healthSpinner.addChangeListener(change -> mainWindow.getCharacter().setHealth((int) this.healthSpinner.getValue()));
+        this.healthSpinner.addChangeListener(change -> {
+            mainWindow.getCharacter().setHealth((int) this.healthSpinner.getValue());
+            mainWindow.setUnsaved(true);
+        });
 
         this.armorSpinner = new JSpinner(new SpinnerNumberModel(mainWindow.getCharacter().getArmor(), 10, 50, 1));
         this.armorSpinner.setBorder(new TitledBorder("Panssaripisteet"));
         this.armorSpinner.setPreferredSize(new Dimension(150, 50));
         ((JSpinner.DefaultEditor) armorSpinner.getEditor()).getTextField().setEditable(false);
-        this.armorSpinner.addChangeListener(change -> mainWindow.getCharacter().setArmor((int) this.armorSpinner.getValue()));
+        this.armorSpinner.addChangeListener(change -> {
+            mainWindow.getCharacter().setArmor((int) this.armorSpinner.getValue());
+            mainWindow.setUnsaved(true);
+        });
 
         JPanel namePanel = new JPanel();
         namePanel.setLayout(new BoxLayout(namePanel, BoxLayout.X_AXIS));
@@ -83,6 +107,8 @@ public class InfoPanel extends JPanel {
 
         return constraints;
     }
+
+
 
     public JTextField getNameField() {
         return nameField;

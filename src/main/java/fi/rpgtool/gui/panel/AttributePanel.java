@@ -35,7 +35,10 @@ public class AttributePanel extends JPanel {
 
             // changelistener joka päivittää "bonus" kentän arvoa, tällä hetkellä vain
             // yksinkertainen bonus = ominaisuus - 10 niin ei mennä turhan monimutkaiseksi
-            spinner.addChangeListener(change -> attributeBonus.setText("+" + ((int)spinner.getValue() - 10)));
+            spinner.addChangeListener(change -> {
+                attributeBonus.setText("+" + ((int)spinner.getValue() - 10));
+                mainWindow.setUnsaved(true);
+            });
 
             data.add(new Pair<>(attribute, spinner));
 

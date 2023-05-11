@@ -5,17 +5,18 @@ import fi.rpgtool.gui.window.MainWindow;
 import fi.rpgtool.gui.window.StatisticWindow;
 
 import javax.swing.*;
+import java.io.File;
 
 public class RPGTool {
 
     public static void main(String[] args) {
         // Todennäköisesti turha osa, mutta sallii koodin jatkamisen tässä
-        MainWindow window = createWindow();
+        MainWindow window = createWindow(new File("default.json"));
     }
 
-    public static MainWindow createWindow() {
+    public static MainWindow createWindow(File file) {
 
-        MainWindow window = new MainWindow("default.json");
+        MainWindow window = new MainWindow(file);
 
         StatisticWindow statisticWindow = new StatisticWindow(window);
         InventoryWindow inventoryWindow = new InventoryWindow(window);

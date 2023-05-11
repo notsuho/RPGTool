@@ -64,7 +64,10 @@ public class SkillPanel extends JPanel {
         ((JSpinner.DefaultEditor) spinner.getEditor()).getTextField().setEditable(false);
 
         textField.addKeyListener(new KeyPressListener(this.mainWindow));
-        spinner.addChangeListener(change -> mainWindow.getStatisticWindow().setSkillDropdownValues());
+        spinner.addChangeListener(change -> {
+            mainWindow.getStatisticWindow().setSkillDropdownValues();
+            mainWindow.setUnsaved(true);
+        });
 
         this.add(textField);
         this.add(spinner);
@@ -81,16 +84,19 @@ public class SkillPanel extends JPanel {
         @Override
             public void keyTyped(KeyEvent e) {
                 mainWindow.getStatisticWindow().setSkillDropdownValues();
+                mainWindow.setUnsaved(true);
             }
 
             @Override
             public void keyPressed(KeyEvent e) {
                 mainWindow.getStatisticWindow().setSkillDropdownValues();
+                mainWindow.setUnsaved(true);
             }
 
             @Override
             public void keyReleased(KeyEvent e) {
                 mainWindow.getStatisticWindow().setSkillDropdownValues();
+                mainWindow.setUnsaved(true);
             }
         }
 

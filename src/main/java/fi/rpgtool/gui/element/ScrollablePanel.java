@@ -26,7 +26,6 @@ public class ScrollablePanel extends JPanel {
     }
 
     public void addItems(List<String> items) {
-
         for (String item : items) {
             addItem(item);
         }
