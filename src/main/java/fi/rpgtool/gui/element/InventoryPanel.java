@@ -7,13 +7,16 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ScrollablePanel extends JPanel {
+/**
+ * Tavarapaneeli tavaroiden säilyttämistä varten. Yksittäiset tavarat ovat "soluja", jotka ovat {@link ItemCell} luokan objekteja.
+ */
+public class InventoryPanel extends JPanel {
 
-    private final List<CellPanel> cells = new ArrayList<>();
+    private final List<ItemCell> cells = new ArrayList<>();
     private final JScrollPane pane;
     private final JPanel items;
 
-    public ScrollablePanel() {
+    public InventoryPanel() {
 
         this.items = new JPanel();
         this.items.setLayout(new BoxLayout(items, BoxLayout.Y_AXIS));
@@ -34,19 +37,17 @@ public class ScrollablePanel extends JPanel {
 
     public void addItem(String item) {
 
-        CellPanel cellPanel = new CellPanel(item, this);
+        ItemCell itemCell = new ItemCell(item, this);
 
-        cells.add(cellPanel);
-        items.add(cellPanel);
-
-        this.pane.getVerticalScrollBar().setValue(Integer.MAX_VALUE);
+        cells.add(itemCell);
+        items.add(itemCell);
 
         updateLastAndRevalidate();
 
         this.pane.getVerticalScrollBar().setValue((int)items.getPreferredSize().getHeight());
     }
 
-    public void removeItem(CellPanel panel) {
+    public void removeItem(ItemCell panel) {
         cells.remove(panel);
         items.remove(panel);
         updateLastAndRevalidate();
@@ -63,19 +64,24 @@ public class ScrollablePanel extends JPanel {
         items.repaint();
     }
 
-    public List<CellPanel> getCells() {
+    public List<ItemCell> getCells() {
         return cells;
     }
 
-    public static class CellPanel extends JPanel {
+    /**
+     * Yksittäinen solu tämän paneelin (siis tavaralistan) yksittäisen tavaran säilyttämisen.
+     * Sisältää tekstikentän johon voi kirjoittaa tietoja tavarasta sekä napin, jolla voi joko poistaa tavaran
+     * tai lisätä uuden tavaran riippuen siitä, onko tavara merkitty listan viimeiseksi vai ei.
+     */
+    public static class ItemCell extends JPanel {
 
         private static final int GAP = 4;
 
-        private final ScrollablePanel parent;
+        private final InventoryPanel parent;
         private final JTextField textField;
         private final JButton button;
 
-        public CellPanel(String content, ScrollablePanel parent) {
+        public ItemCell(String content, InventoryPanel parent) {
 
             this.parent = parent;
 
@@ -96,6 +102,10 @@ public class ScrollablePanel extends JPanel {
             this.add(button, BorderLayout.EAST);
         }
 
+        /**
+         * Päivittää solun napin sisällön ja tapahtumat
+         * @param last onko tämä solu viimeinen solu vai ei
+         */
         public void update(boolean last) {
 
             if (last) {

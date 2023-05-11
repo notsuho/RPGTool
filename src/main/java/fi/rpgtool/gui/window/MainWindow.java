@@ -7,7 +7,7 @@ import fi.rpgtool.RPGTool;
 import fi.rpgtool.data.Character;
 import fi.rpgtool.data.Pair;
 import fi.rpgtool.gui.element.HelpDialog;
-import fi.rpgtool.gui.element.ScrollablePanel;
+import fi.rpgtool.gui.element.InventoryPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -212,7 +212,7 @@ public class MainWindow extends JFrame {
         character.setNotes(inventoryWindow.getNotes().getText());
 
         character.getInventory().clear();
-        for (ScrollablePanel.CellPanel panel : inventoryWindow.getItems().getCells()) {
+        for (InventoryPanel.ItemCell panel : inventoryWindow.getItems().getCells()) {
 
             String text = panel.getTextField().getText();
 
