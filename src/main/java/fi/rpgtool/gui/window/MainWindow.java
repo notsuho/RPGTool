@@ -83,15 +83,15 @@ public class MainWindow extends JFrame {
 
         MenuBar menu = new MenuBar();
 
-        Menu file = new Menu("FILE");
-        Menu help = new Menu("HELP");
+        Menu file = new Menu("Tiedosto");
+        Menu help = new Menu("Ohje");
 
         menu.add(file);
         menu.add(help);
 
-        file.add(makeSaveButton("SAVE"));
-        file.add(makeSaveAsButton("SAVE AS"));
-        file.add(makeImportButton("IMPORT"));
+        file.add(makeSaveButton("Tallenna"));
+        file.add(makeSaveAsButton("Tallenna nimellä"));
+        file.add(makeImportButton("Tuo tiedostosta"));
 
         help.add(makeHelpMenuItem("KÄYTTÖOHJE"));
 
