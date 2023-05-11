@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Tavarapaneeli tavaroiden säilyttämistä varten. Yksittäiset tavarat ovat "soluja", jotka ovat {@link ItemCell} luokan objekteja.
+ * Tavarapaneeli tavaroiden säilyttämistä varten. Yksittäiset tavarat ovat "soluja", jotka ovat luokan {@link ItemCell} objekteja.
  */
 public class InventoryPanel extends JPanel {
 
@@ -44,7 +44,9 @@ public class InventoryPanel extends JPanel {
 
         updateLastAndRevalidate();
 
-        this.pane.getVerticalScrollBar().setValue((int)items.getPreferredSize().getHeight());
+        int height = (int) items.getPreferredSize().getHeight();
+        this.pane.getVerticalScrollBar().setValue(height);
+        items.scrollRectToVisible(new Rectangle(0, height, 10, 10));
     }
 
     public void removeItem(ItemCell panel) {
@@ -136,6 +138,5 @@ public class InventoryPanel extends JPanel {
         }
 
     }
-
 
 }
