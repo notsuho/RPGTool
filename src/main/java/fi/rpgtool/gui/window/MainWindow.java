@@ -251,7 +251,7 @@ public class MainWindow extends JFrame {
     private static class CloseAdapter extends WindowAdapter {
 
         private static final String UNSAVED_CHANGES = "Sinulla on tallentamattomia muutoksia, haluatko tallentaa ne?";
-        private static final Object[] YES_NO_CANCEL_OPTIONS = {"Kyllä", "Ei", "Mene takaisin"};
+        private static final Object[] YES_NO_CANCEL_OPTIONS = {"Kyllä", "Ei", "Peruuta"};
 
         private final MainWindow window;
 
