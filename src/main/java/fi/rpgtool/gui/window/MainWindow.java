@@ -44,7 +44,6 @@ public class MainWindow extends JFrame {
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.addWindowListener(new CloseAdapter(this));
         this.setPreferredSize(new Dimension(600, 800));
-        this.setLocationRelativeTo(null);
         this.setLayout(new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS));
         // tän voi pistää falseksi jos ei halua käyttäjän muokkaavan ikkunan kokoa
         this.setResizable(true);

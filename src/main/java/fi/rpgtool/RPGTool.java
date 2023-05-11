@@ -35,6 +35,7 @@ public class RPGTool {
 
         window.getContentPane().add(pane);
         window.pack();
+        window.setLocationRelativeTo(null);
 
         SwingUtilities.invokeLater(() -> {
 
