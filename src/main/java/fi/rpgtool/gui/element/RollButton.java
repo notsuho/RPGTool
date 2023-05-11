@@ -3,10 +3,7 @@ package fi.rpgtool.gui.element;
 import fi.rpgtool.gui.window.MainWindow;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -85,7 +82,7 @@ public class RollButton extends JButton {
         return (int) this.difficultySelector.getSelectedItem();
     }
 
-    static class RollButtonClickListener implements MouseListener {
+    static class RollButtonClickListener extends MouseAdapter {
 
         private final RollButton rollButton;
         private Timer timer;
@@ -145,22 +142,6 @@ public class RollButton extends JButton {
 
             timer.setInitialDelay(0);
             timer.start();
-        }
-
-        @Override
-        public void mousePressed(MouseEvent e) {
-        }
-
-        @Override
-        public void mouseReleased(MouseEvent e) {
-        }
-
-        @Override
-        public void mouseEntered(MouseEvent e) {
-        }
-
-        @Override
-        public void mouseExited(MouseEvent e) {
         }
 
     }

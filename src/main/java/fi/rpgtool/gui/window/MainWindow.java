@@ -29,7 +29,7 @@ public class MainWindow extends JFrame {
 
     private Character character;
     private boolean hasChanged = false;
-    private final File file;
+    private File file;
 
     private StatisticWindow statisticWindow;
     private InventoryWindow inventoryWindow;
@@ -133,9 +133,7 @@ public class MainWindow extends JFrame {
 
         JFileChooser fileChooser = new JFileChooser();
 
-        File saveFile = new File(System.getProperty("user.home"), character.getName().replaceAll("\\s+", "_") + ".json");
-
-        fileChooser.setSelectedFile(saveFile);
+        fileChooser.setSelectedFile(getSaveFile());
 
         int result = fileChooser.showSaveDialog(null);
 
@@ -164,7 +162,7 @@ public class MainWindow extends JFrame {
         MenuItem item = new MenuItem(label);
 
         item.addActionListener(action -> {
-            JFileChooser fileChooser = new JFileChooser(new File(System.getProperty("user.home")));
+            JFileChooser fileChooser = new JFileChooser(new File("hahmot"));
 
             int result = fileChooser.showOpenDialog(this);
 
@@ -222,17 +220,31 @@ public class MainWindow extends JFrame {
 
         }
 
-        if (file == null) {
-            file = this.file;
-        }
-
-        if (file.isDirectory()) {
-            file = new File(file, character.getName().replaceAll("\\s+", "_") + ".json");
-        }
+        file = getSaveFile();
 
         Files.writeString(Path.of(file.getPath()), GSON.toJson(character, Character.class), StandardCharsets.UTF_8);
 
         setUnsaved(false);
+    }
+
+    private File getSaveFile() {
+
+        if (this.file == null) {
+            this.file = new File("hahmot");
+        }
+
+        if (this.file.isDirectory()) {
+
+            String fileName = character.getName().replaceAll("\\s+", "_");
+
+            if (fileName.isBlank()) {
+                fileName = "johndoe";
+            }
+
+            return new File(file, fileName + ".json");
+        }
+
+        return this.file;
     }
 
     public void load() {

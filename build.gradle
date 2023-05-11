@@ -11,14 +11,23 @@ java {
     compileJava.options.encoding("UTF-8")
 }
 
-application {
-    mainClassName = "fi.rpgtool.RPGTool"
-}
-
 repositories {
     mavenCentral()
 }
 
 dependencies {
     implementation 'com.google.code.gson:gson:2.10.1'
+}
+
+application {
+    mainClassName = "fi.rpgtool.RPGTool"
+}
+
+jar {
+    manifest {
+        attributes (
+            'Main-Class': 'fi.rpgtool.RPGTool',
+            'Class-Path': configurations.runtimeClasspath.files.collect { it.getName() }.join(' ')
+        )
+    }
 }

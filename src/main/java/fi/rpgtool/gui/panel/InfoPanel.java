@@ -65,7 +65,7 @@ public class InfoPanel extends JPanel {
 
         JPanel namePanel = new JPanel();
         namePanel.setLayout(new BoxLayout(namePanel, BoxLayout.X_AXIS));
-        namePanel.add(new JLabel(new ImageIcon("src/main/resources/kuva-isompi.jpg")));
+        namePanel.add(new JLabel(new ImageIcon("resurssit/kuva.jpg")));
         namePanel.add(this.nameField);
 
         JPanel healthPanel = new JPanel();
@@ -73,8 +73,8 @@ public class InfoPanel extends JPanel {
         healthPanel.setLayout(new GridBagLayout());
         healthPanel.setPreferredSize(new Dimension(200, 100));
 
-        JLabel heartLabel = new JLabel(new ImageIcon("src/main/resources/hp-heart.jpg"));
-        JLabel armorLabel = new JLabel(new ImageIcon("src/main/resources/armor-shield.jpg"));
+        JLabel heartLabel = new JLabel(new ImageIcon("resurssit/hp-heart.jpg"));
+        JLabel armorLabel = new JLabel(new ImageIcon("resurssit/armor-shield.jpg"));
 
         heartLabel.setPreferredSize(new Dimension(30, 30));
         armorLabel.setPreferredSize(new Dimension(30, 30));
@@ -107,8 +107,6 @@ public class InfoPanel extends JPanel {
 
         return constraints;
     }
-
-
 
     public JTextField getNameField() {
         return nameField;

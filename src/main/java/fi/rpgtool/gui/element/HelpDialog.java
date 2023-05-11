@@ -19,7 +19,7 @@ public class HelpDialog extends JDialog {
         this.setLocationRelativeTo(null);
 
         JTextPane helpText = new JTextPane();
-        File file = new File("src/main/resources/helptext.txt");
+        File file = new File("resurssit/helptext.txt");
         Reader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8));
         helpText.read(reader, helpText);
         helpText.setEditable(false);
