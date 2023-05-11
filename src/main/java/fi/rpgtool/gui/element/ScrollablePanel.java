@@ -10,6 +10,7 @@ import java.util.List;
 public class ScrollablePanel extends JPanel {
 
     private final List<CellPanel> cells = new ArrayList<>();
+    private final JScrollPane pane;
     private final JPanel items;
 
     public ScrollablePanel() {
@@ -19,7 +20,7 @@ public class ScrollablePanel extends JPanel {
 
         this.setLayout(new BorderLayout());
 
-        JScrollPane pane = new JScrollPane(items, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        this.pane = new JScrollPane(items, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         pane.getVerticalScrollBar().setUnitIncrement(16);
 
         this.add(pane, BorderLayout.CENTER);
@@ -38,7 +39,11 @@ public class ScrollablePanel extends JPanel {
         cells.add(cellPanel);
         items.add(cellPanel);
 
+        this.pane.getVerticalScrollBar().setValue(Integer.MAX_VALUE);
+
         updateLastAndRevalidate();
+
+        this.pane.getVerticalScrollBar().setValue((int)items.getPreferredSize().getHeight());
     }
 
     public void removeItem(CellPanel panel) {

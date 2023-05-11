@@ -231,6 +231,8 @@ public class MainWindow extends JFrame {
         }
 
         Files.writeString(Path.of(file.getPath()), GSON.toJson(character, Character.class), StandardCharsets.UTF_8);
+
+        setUnsaved(false);
     }
 
     public void load() {
@@ -262,23 +264,17 @@ public class MainWindow extends JFrame {
 
             if (!window.needsSaving()) {
                 window.dispose();
-            } else {
-
-                int option = JOptionPane.showOptionDialog(null, UNSAVED_CHANGES, NOTIFICATION_TITLE,
-                        JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, YES_NO_CANCEL_OPTIONS, -1);
-
-                switch (option) {
-                    case JOptionPane.YES_OPTION -> {
-                        window.openSaveWindow();
-                        window.setUnsaved(false);
-                    }
-                    case JOptionPane.NO_OPTION -> {
-                        window.dispose();
-                        window.setUnsaved(false);
-                    }
-                }
-
+                return;
             }
+
+            int option = JOptionPane.showOptionDialog(null, UNSAVED_CHANGES, NOTIFICATION_TITLE,
+                    JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, YES_NO_CANCEL_OPTIONS, -1);
+
+            switch (option) {
+                case JOptionPane.YES_OPTION -> window.openSaveWindow();
+                case JOptionPane.NO_OPTION -> window.dispose();
+            }
+
         }
     }
 }
