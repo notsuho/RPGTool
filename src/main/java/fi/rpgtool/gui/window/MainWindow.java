@@ -131,7 +131,7 @@ public class MainWindow extends JFrame {
 
     private void openSaveWindow() {
 
-        JFileChooser fileChooser = new JFileChooser();
+        JFileChooser fileChooser = new JFileChooser(new File("hahmot"));
 
         fileChooser.setSelectedFile(getSaveFile());
 

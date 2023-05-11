@@ -11,7 +11,7 @@ public class RPGTool {
 
     public static void main(String[] args) {
         // Todennäköisesti turha osa, mutta sallii koodin jatkamisen tässä
-        MainWindow window = createWindow(new File("hahmot", "default.json"));
+        MainWindow window = createWindow(new File("hahmot"));
     }
 
     public static MainWindow createWindow(File file) {
