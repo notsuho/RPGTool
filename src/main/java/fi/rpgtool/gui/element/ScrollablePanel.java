@@ -84,18 +84,18 @@ public class ScrollablePanel extends JPanel {
             this.setBorder(BorderFactory.createCompoundBorder(lineBorder, emptyBorder));
 
             this.textField = new JTextField(content);
-            textField.setPreferredSize(new Dimension(500, 30));
 
             this.button = new JButton();
 
+            this.add(textField, BorderLayout.CENTER);
             this.add(button, BorderLayout.EAST);
-            this.add(textField, BorderLayout.WEST);
         }
 
         public void update(boolean last) {
 
             if (last) {
 
+                // Poistetaan kaikki muut elementit (niitä pitäisi olla vain 1) jotta yksi nappi ei yhtäkkiä tee kahta asiaa
                 for (ActionListener listener : button.getActionListeners()) {
                     button.removeActionListener(listener);
                 }
@@ -105,6 +105,7 @@ public class ScrollablePanel extends JPanel {
 
             } else {
 
+                // Poistetaan kaikki muut elementit (niitä pitäisi olla vain 1) jotta yksi nappi ei yhtäkkiä tee kahta asiaa
                 for (ActionListener listener : button.getActionListeners()) {
                     button.removeActionListener(listener);
                 }
@@ -117,10 +118,6 @@ public class ScrollablePanel extends JPanel {
 
         public JTextField getTextField() {
             return textField;
-        }
-
-        public JButton getButton() {
-            return button;
         }
 
     }

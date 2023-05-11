@@ -29,8 +29,8 @@ public class InventoryWindow extends JPanel {
         JScrollPane notePane = new JScrollPane(notes, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         notePane.setPreferredSize(new Dimension(400, 300));
 
-        this.add(items, BorderLayout.PAGE_START);
-        this.add(notePane, BorderLayout.PAGE_END);
+        this.add(items, BorderLayout.CENTER);
+        this.add(notePane, BorderLayout.SOUTH);
     }
 
     public JTextArea getNotes() {
