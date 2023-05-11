@@ -110,7 +110,7 @@ public class MainWindow extends JFrame {
 
         item.addActionListener(action -> {
             try {
-                save(null);
+                save();
                 JOptionPane.showMessageDialog(this, SAVING_SUCCESS, NOTIFICATION_TITLE, JOptionPane.INFORMATION_MESSAGE);
             } catch (IOException ex) {
                 JOptionPane.showMessageDialog(this, SAVING_FAILED, ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
@@ -140,13 +140,13 @@ public class MainWindow extends JFrame {
         if (result == JFileChooser.APPROVE_OPTION) {
             try {
 
-                File chosenFile = fileChooser.getSelectedFile();
+                this.file = fileChooser.getSelectedFile();
 
-                if (!chosenFile.exists()) {
-                    chosenFile.mkdirs();
+                if (!this.file.exists()) {
+                    this.file.mkdirs();
                 }
 
-                save(chosenFile);
+                save();
 
                 JOptionPane.showMessageDialog(this, SAVING_SUCCESS, NOTIFICATION_TITLE, JOptionPane.INFORMATION_MESSAGE);
 
@@ -189,7 +189,7 @@ public class MainWindow extends JFrame {
         return item;
     }
 
-    public void save(File file) throws IOException {
+    public void save() throws IOException {
 
         StatisticWindow stats = getStatisticWindow();
 
@@ -220,9 +220,7 @@ public class MainWindow extends JFrame {
 
         }
 
-        file = getSaveFile();
-
-        Files.writeString(Path.of(file.getPath()), GSON.toJson(character, Character.class), StandardCharsets.UTF_8);
+        Files.writeString(Path.of(getSaveFile().getPath()), GSON.toJson(character, Character.class), StandardCharsets.UTF_8);
 
         setUnsaved(false);
     }
@@ -241,7 +239,7 @@ public class MainWindow extends JFrame {
                 fileName = "johndoe";
             }
 
-            return new File(file, fileName + ".json");
+            return new File(this.file, fileName + ".json");
         }
 
         return this.file;
