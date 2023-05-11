@@ -37,7 +37,16 @@ public class MainWindow extends JFrame {
 
     public MainWindow(File file) {
 
-        this.file = file;
+        if (file == null) {
+            this.file = new File("hahmot");
+        } else {
+            this.file = file;
+        }
+
+        if (!this.file.exists()) {
+            this.file.mkdirs();
+        }
+
         load();
 
         this.setTitle("RPGTool");
